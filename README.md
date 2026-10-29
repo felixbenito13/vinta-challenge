@@ -57,3 +57,25 @@ public/img/      optimized WebP illustrations and screens
 - Facts come from Vinta’s current case pages. Items not yet confirmed are flagged on the page (“to confirm”): project duration, impact metric, timeline dates.
 - Illustrations are original, made with Adobe Firefly from the illustration guide in the DS and retouched; prompts are in the AI conversation logs.
 - Typography uses Geist as the licensed fallback for Moderat.
+
+## Assumptions
+
+- Geist is used as the licensed fallback for Moderat (brand font license to confirm)
+- Links to other case studies point to the current pages on vintasoftware.com
+- Segment mapping of some cases is my interpretation (Perci Health, Medplum, Splendid Spoon)
+- Patient names in the Quilted screenshots are assumed to be demo data (to confirm)
+
+## Known limitations
+
+- Only the two requested pages are implemented; header and footer links go to the live site
+- Mobile layouts were built directly in code, not drawn in Figma
+- Unconfirmed facts are flagged on the page: project duration, impact metric, timeline dates
+- Before/after numbers: “before” from PageSpeed Insights on vintasoftware.com; “after” from Lighthouse on the production build. Commercial impact (H1–H7) is expected, not measured
+
+## Time spent
+
+About 40 hours over 5 days: research, baseline and audit (10 h) · hypotheses, personas and benchmark (6 h) · design system (8 h) · layouts and illustrations (7 h) · implementation with Claude Code (5 h) · deploy, validation and handoff (4 h).
+
+## Tools
+
+Claude (research, Figma/FigJam through MCP) · Claude Code (implementation) · Adobe Firefly (illustrations) · Figma and FigJam · PageSpeed Insights, Lighthouse, axe · GitHub and Netlify.
