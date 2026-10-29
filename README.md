@@ -4,7 +4,10 @@ Redesign and implementation of Vinta's **/work** (Clients) page and the **/work/
 
 - **Live:** _Netlify URL coming soon_
 - **Design system (Figma):** documented components, tokens and the illustration guide
-- **Research board (FigJam):** audit, Lighthouse baseline, hypotheses H1–H9, personas, benchmark
+- **Research and presentation board (FigJam):** 13 numbered sections, from brief to AI workflow and validation
+- **Design system summary:** [`docs/design-system.md`](docs/design-system.md)
+- **AI conversation logs:** [`docs/ai-logs/`](docs/ai-logs/)
+- **Responsive screenshots:** [`docs/screenshots/`](docs/screenshots/) (390 and 768 px)
 
 ## What changed and why
 
