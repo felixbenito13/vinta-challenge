@@ -10,8 +10,8 @@ const ext = !c.internal;
 <article class={`case-card case-card--${layout}`} data-case data-segment={c.segment} data-solution={c.solution} data-service={c.services.join('|')}>
   <div class="media">
     {layout === 'featured'
-      ? <img src={`/img/${c.image}-hero-1120.webp`} srcset={`/img/${c.image}-hero-640.webp 640w, /img/${c.image}-hero-1120.webp 1120w`} sizes="(max-width: 900px) 100vw, 560px" width="1120" height="625" alt="" loading={eager ? 'eager' : 'lazy'} decoding="async" fetchpriority={eager ? 'high' : undefined} />
-      : <img src={`/img/${c.image}-480.webp`} srcset={`/img/${c.image}-480.webp 480w, /img/${c.image}-768.webp 768w`} sizes="(max-width: 600px) 100vw, (max-width: 1100px) 50vw, 384px" width="768" height="429" alt="" loading="lazy" decoding="async" />}
+      ? <img src={`/img/${c.image}-hero-1120.webp`} srcset={`/img/${c.image}-hero-640.webp 640w, /img/${c.image}-hero-1120.webp 1120w`} sizes="(max-width: 900px) 100vw, 560px" width="1120" height="625" alt={c.alt} loading={eager ? 'eager' : 'lazy'} decoding="async" fetchpriority={eager ? 'high' : undefined} />
+      : <img src={`/img/${c.image}-480.webp`} srcset={`/img/${c.image}-480.webp 480w, /img/${c.image}-768.webp 768w`} sizes="(max-width: 600px) 100vw, (max-width: 1100px) 50vw, 384px" width="768" height="429" alt={c.alt} loading="lazy" decoding="async" />}
   </div>
   <div class="body">
     <p class="eyebrow client">{c.client}</p>

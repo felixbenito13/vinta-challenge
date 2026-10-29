@@ -15,6 +15,20 @@ const toc = [
   ['decisions', 'Key decisions'], ['timeline', 'Timeline'], ['results', 'Results'], ['next', 'What’s next'], ['stack', 'Tech stack'],
 ];
 const V = 'https://www.vintasoftware.com';
+const site = Astro.site!.href.replace(/\/$/, '');
+const org = { '@type': 'Organization', '@id': V + '/#org', name: 'Vinta Software', url: V, logo: site + '/img/vinta-logo.svg' };
+const jsonld = [
+  { '@context': 'https://schema.org', '@type': 'Article', headline: 'Quilted Health: rebuilding a 14-year-old maternity EHR on Medplum',
+    description: 'How Vinta helped Quilted Health rebuild Maternity Neighborhood, its maternity EHR, on Medplum, starting with a one-month proof of concept.',
+    url: site + '/work/quilted-health', mainEntityOfPage: site + '/work/quilted-health', inLanguage: 'en',
+    image: [site + '/img/og-quilted-health-case-study.jpg', site + '/img/quilted-health-new-medplum-ehr-after.webp'],
+    author: org, publisher: org,
+    about: [{ '@type': 'Organization', name: 'Quilted Health' }, { '@type': 'Thing', name: 'Electronic health record' }, { '@type': 'SoftwareApplication', name: 'Medplum', applicationCategory: 'HealthApplication' }],
+    keywords: 'EHR modernization, Medplum, FHIR, maternity care, midwifery, healthcare software' },
+  { '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Work', item: site + '/work' },
+    { '@type': 'ListItem', position: 2, name: 'Quilted Health', item: site + '/work/quilted-health' }] },
+];
 const services = [
   ['EHR Development & Modernization', 'Create a new clinical platform or modernize the one your team runs.', V + '/ehr-modernization'],
   ['Medplum Development', 'Senior engineers fluent in Medplum and FHIR, from the first sprint.', V + '/medplum'],
@@ -22,7 +36,7 @@ const services = [
   ['Fast-track Builds', 'A demo-ready MVP built on proven healthcare foundations.', V + '/building-blocks'],
 ];
 ---
-<Base title="Quilted Health: rebuilding a 14-year-old maternity EHR on Medplum · Vinta" description="How Vinta helped Quilted Health rebuild Maternity Neighborhood, its maternity EHR, on Medplum, starting with a one-month proof of concept." preload="/img/quilted-health-hero-1120.webp">
+<Base title="Quilted Health: rebuilding a 14-year-old maternity EHR on Medplum · Vinta" description="How Vinta helped Quilted Health rebuild Maternity Neighborhood, its maternity EHR, on Medplum, starting with a one-month proof of concept." preload="/img/quilted-health-maternity-ehr-illustration-hero-1120.webp" image="/img/og-quilted-health-case-study.jpg" imageAlt="Illustration: a mother holding her sleeping newborn by a window at dawn" type="article" jsonld={jsonld}>
   <section class="section hero" aria-labelledby="case-title">
     <div class="container">
       <nav aria-label="Breadcrumb" class="crumbs eyebrow"><ol role="list"><li><a href="/work">Work</a></li><li aria-current="page">Quilted Health</li></ol></nav>
@@ -42,7 +56,7 @@ const services = [
           </div>
         </div>
         <div class="hero-img">
-          <img src="/img/quilted-health-hero-1120.webp" srcset="/img/quilted-health-hero-640.webp 640w, /img/quilted-health-hero-1120.webp 1120w" sizes="(max-width: 900px) 100vw, 560px" width="1120" height="625" alt="Illustration: a mother holding her sleeping newborn by a window at dawn" fetchpriority="high" />
+          <img src="/img/quilted-health-maternity-ehr-illustration-hero-1120.webp" srcset="/img/quilted-health-maternity-ehr-illustration-hero-640.webp 640w, /img/quilted-health-maternity-ehr-illustration-hero-1120.webp 1120w" sizes="(max-width: 900px) 100vw, 560px" width="1120" height="625" alt="Illustration: a mother in an armchair holding her sleeping newborn, wrapped in a patchwork quilt, by a window at dawn" fetchpriority="high" />
         </div>
       </div>
     </div>
@@ -92,7 +106,7 @@ const services = [
           </dl>
           <figure class="shot">
             <p class="eyebrow eyebrow--accent">Before</p>
-            <img src="/img/quilted-ui-before.webp" width="1200" height="502" loading="lazy" decoding="async" alt="Screenshot of Maternity Neighborhood, the legacy EHR: a dated client list with a side menu for clients, activity, messages, schedule and to-dos." />
+            <img src="/img/quilted-health-legacy-ehr-before.webp" srcset="/img/quilted-health-legacy-ehr-before-800.webp 800w, /img/quilted-health-legacy-ehr-before.webp 1200w" sizes="(max-width: 900px) 100vw, 880px" width="1200" height="502" loading="lazy" decoding="async" alt="Screenshot of Maternity Neighborhood, the legacy EHR: a dated client list with a side menu for clients, activity, messages, schedule and to-dos." />
             <figcaption class="small">Maternity Neighborhood before the rebuild: 14 years of custom code on Python 2 and Angular 1.</figcaption>
           </figure>
           <p>Modernizing the existing codebase proved more complex and riskier than building a new solution. A rebuild became the safer long-term path.</p>
@@ -122,7 +136,7 @@ const services = [
           <p>Starting over was a significant investment, so the team proposed a one-month proof of concept to validate the architecture before committing to the rebuild.</p>
           <figure class="shot">
             <p class="eyebrow eyebrow--accent">After</p>
-            <img src="/img/quilted-ui-after.webp" width="1200" height="812" loading="lazy" decoding="async" alt="Screenshot of the new EHR built on Medplum: a client profile with pregnancy problems, medications and allergies, prenatal encounters and a prenatal flow sheet." />
+            <img src="/img/quilted-health-new-medplum-ehr-after.webp" srcset="/img/quilted-health-new-medplum-ehr-after-800.webp 800w, /img/quilted-health-new-medplum-ehr-after.webp 1200w" sizes="(max-width: 900px) 100vw, 880px" width="1200" height="812" loading="lazy" decoding="async" alt="Screenshot of the new EHR built on Medplum: a client profile with pregnancy problems, medications and allergies, prenatal encounters and a prenatal flow sheet." />
             <figcaption class="small">The new EHR built on Medplum: client profile, prenatal encounters and flow sheet in one view.</figcaption>
           </figure>
         </section>

@@ -45,6 +45,13 @@ src/
 public/img/      optimized WebP illustrations and screens
 ```
 
+## Images and SEO
+
+- WebP at the sizes they render (480/768 for cards, 640/1120 for heroes, 800/1200 for screens), all under 40 KB, with `width`/`height` set to avoid layout shift; only the hero is preloaded, everything else is lazy-loaded
+- Descriptive, kebab-case file names (`rewind-diabetes-care-ehr-migration-illustration-768.webp`)
+- Alt text describes each illustration and screen; purely decorative images use `alt=""`
+- Open Graph and Twitter cards with 1200×630 images, canonical URLs, `robots` meta, JSON-LD (`CollectionPage`, `Article`, `BreadcrumbList`), `sitemap.xml` with image entries and `robots.txt`
+
 ## Content notes
 
 - Facts come from Vinta’s current case pages. Items not yet confirmed are flagged on the page (“to confirm”): project duration, impact metric, timeline dates.

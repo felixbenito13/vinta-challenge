@@ -9,8 +9,15 @@ import ContactForm from '../../components/ContactForm.astro';
 import Icon from '../../components/Icon.astro';
 import { cases, featured, beyond } from '../../data/cases';
 const strip = ['Maternal & Prenatal', 'Chronic Disease', 'Weight & Metabolic', 'Behavioral & Mental', 'Pediatric & Family', 'Care Navigation & Clinic Ops'];
+const site = Astro.site!.href.replace(/\/$/, '');
+const org = { '@type': 'Organization', '@id': 'https://www.vintasoftware.com/#org', name: 'Vinta Software', url: 'https://www.vintasoftware.com', logo: site + '/img/vinta-logo.svg' };
+const jsonld = [
+  { '@context': 'https://schema.org', '@type': 'CollectionPage', name: 'Healthcare work · Vinta', url: site + '/work', description: 'Healthcare software case studies by Vinta, organized by segment, solution and service.', publisher: org, inLanguage: 'en',
+    mainEntity: { '@type': 'ItemList', itemListElement: [featured, ...cases].map((c, i) => ({ '@type': 'ListItem', position: i + 1, name: `${c.client}: ${c.title}`, url: c.internal ? site + c.url : c.url })) } },
+  { '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: [{ '@type': 'ListItem', position: 1, name: 'Work', item: site + '/work' }] },
+];
 ---
-<Base title="Healthcare work · Vinta" description="EHR rebuilds, Medplum platforms and clinical tools Vinta built with healthtech teams. Browse the work by healthcare segment, solution or service." preload="/img/quilted-health-hero-1120.webp">
+<Base title="Healthcare work · Vinta" description="EHR rebuilds, Medplum platforms and clinical tools Vinta built with healthtech teams. Browse the work by healthcare segment, solution or service." preload="/img/quilted-health-maternity-ehr-illustration-hero-1120.webp" image="/img/og-vinta-healthcare-work.jpg" imageAlt="Illustration: a nurse coordinator at a wall of lit squares that stand for hospital beds" jsonld={jsonld}>
   <section class="section hero" aria-labelledby="hero-title">
     <div class="container">
       <div class="hero-row">

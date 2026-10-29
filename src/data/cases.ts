@@ -10,7 +10,7 @@ export const SERVICES = ['EHR Development & Modernization', 'Medplum Development
 
 export interface Case {
   slug: string; client: string; segment: string; solution: string; services: string[];
-  title: string; challenge: string; evidence: string | null; image: string; url: string; internal?: boolean;
+  title: string; challenge: string; evidence: string | null; image: string; alt: string; url: string; internal?: boolean;
 }
 
 const V = 'https://www.vintasoftware.com/work/';
@@ -20,34 +20,34 @@ export const featured: Case = {
   services: ['EHR Development & Modernization', 'Medplum Development'],
   title: 'Rebuilt a 14-year-old maternity EHR on Medplum',
   challenge: 'Legacy code and no FHIR support made every change slow and risky.',
-  evidence: 'Proof of concept delivered in one month', image: 'quilted-health', url: '/work/quilted-health', internal: true,
+  evidence: 'Proof of concept delivered in one month', image: 'quilted-health-maternity-ehr-illustration', alt: 'Illustration: a mother in an armchair holding her sleeping newborn, wrapped in a patchwork quilt, by a window at dawn', url: '/work/quilted-health', internal: true,
 };
 
 export const cases: Case[] = [
   { slug: 'rewind', client: 'Rewind', segment: 'Chronic Disease', solution: 'EHR platform', services: ['Medplum Development'],
     title: 'Migrated a diabetes care EHR from Healthie to Medplum', challenge: 'An off-the-shelf EHR could not fit Rewind’s clinical workflows.',
-    evidence: null, image: 'rewind', url: V + 'rewind' },
+    evidence: null, image: 'rewind-diabetes-care-ehr-migration-illustration', alt: 'Illustration: a man at a kitchen table checking a glucose reading on his phone', url: V + 'rewind' },
   { slug: 'everself', client: 'Everself', segment: 'Weight & Metabolic', solution: 'Clinical tools', services: ['Medplum Development'],
     title: 'Built a provider portal and communications hub for obesity care', challenge: 'Healthie could not support a more customized care model.',
-    evidence: 'Calling, chat and SMS consolidated in one hub', image: 'everself', url: V + 'everself-bariendo' },
+    evidence: 'Calling, chat and SMS consolidated in one hub', image: 'everself-obesity-care-provider-portal-illustration', alt: 'Illustration: a woman in an armchair on a phone call with her care coordinator', url: V + 'everself-bariendo' },
   { slug: 'brain-health-usa', client: 'Brain Health USA', segment: 'Behavioral & Mental', solution: 'EHR platform', services: ['EHR Development & Modernization'],
     title: 'Turned a fragmented stack into a production-ready EHR roadmap', challenge: '200+ providers and 2,500 daily patient interactions ran on disconnected tools.',
-    evidence: 'Validated EHR roadmap in a 3-week discovery', image: 'brain-health-usa', url: V + 'brain-health-usa' },
+    evidence: 'Validated EHR roadmap in a 3-week discovery', image: 'brain-health-usa-psychiatric-care-ehr-illustration', alt: 'Illustration: a therapist and a patient talking in two armchairs under a skylight', url: V + 'brain-health-usa' },
   { slug: 'perci-health', client: 'Perci Health', segment: 'Chronic Disease', solution: 'EHR platform', services: ['Medplum Development'],
     title: 'Designed a FHIR-native EHR architecture for a nuanced care model', challenge: 'The care model was rich in nuance and needed structure before any build.',
-    evidence: 'Architecture designed in one month', image: 'perci-health', url: V + 'perci-health' },
+    evidence: 'Architecture designed in one month', image: 'perci-health-chronic-care-fhir-architecture-illustration', alt: 'Illustration: a nurse and an older patient sharing tea at a kitchen table', url: V + 'perci-health' },
   { slug: 'transfer-center', client: 'Healthcare Transfer Center', segment: 'Care Navigation & Clinic Ops', solution: 'Care operations', services: ['Healthcare Integration'],
     title: 'Built a real-time patient-flow dashboard on Medplum', challenge: 'Bed availability, inbound requests and patient status lived in separate places.',
-    evidence: 'One operational view fed by HL7 ADT feeds', image: 'transfer-center', url: V + 'healthcare-transfer-center' },
+    evidence: 'One operational view fed by HL7 ADT feeds', image: 'healthcare-transfer-center-patient-flow-illustration', alt: 'Illustration: a nurse coordinator at a wall of lit squares that stand for hospital beds', url: V + 'healthcare-transfer-center' },
   { slug: 'child-care', client: 'Child Care Healthtech', segment: 'Pediatric & Family', solution: 'EHR platform', services: ['EHR Development & Modernization'],
     title: 'Validated a specialty care prototype and a lean MVP scope', challenge: 'Choosing an EHR platform without losing the practitioner experience.',
-    evidence: 'Validated prototype in 2 weeks', image: 'child-care', url: V + 'child-care-ehr' },
+    evidence: 'Validated prototype in 2 weeks', image: 'child-care-pediatric-ehr-prototype-illustration', alt: 'Illustration: a clinician kneeling to talk with a child, a parent beside them', url: V + 'child-care-ehr' },
   { slug: 'medplum', client: 'Medplum', segment: 'Care Navigation & Clinic Ops', solution: 'EHR platform', services: ['Medplum Development'],
     title: 'Built reference use cases for an open-source headless EHR', challenge: 'Developers needed to see what Medplum can do in real clinical workflows.',
-    evidence: null, image: 'medplum', url: V + 'medplum' },
+    evidence: null, image: 'medplum-open-source-ehr-use-cases-illustration', alt: 'Illustration: a clinician and an engineer reviewing a tablet together', url: V + 'medplum' },
   { slug: 'splendid-spoon', client: 'Splendid Spoon', segment: 'Wellness & Longevity', solution: 'Patient app', services: ['Fast-track Builds'],
     title: 'Built a subscription platform for healthy food delivery across the US', challenge: 'Recurring and prepaid plans needed a custom platform built from the ground up.',
-    evidence: null, image: 'splendid-spoon', url: V + 'splendid-spoon' },
+    evidence: null, image: 'splendid-spoon-healthy-meal-subscription-illustration', alt: 'Illustration: a man at his front door holding a meal delivery box', url: V + 'splendid-spoon' },
 ];
 
 export const beyond = [
