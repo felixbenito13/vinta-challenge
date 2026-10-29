@@ -30,9 +30,9 @@ const jsonld = [
     { '@type': 'ListItem', position: 2, name: 'Quilted Health', item: site + '/work/quilted-health' }] },
 ];
 const services = [
-  ['EHR Development & Modernization', 'Create a new clinical platform or modernize the one your team runs.', V + '/ehr-modernization'],
-  ['Medplum Development', 'Senior engineers fluent in Medplum and FHIR, from the first sprint.', V + '/medplum'],
-  ['Healthcare Integration & Interoperability', 'FHIR-native integrations between EHRs, labs and specialty systems.', V + '/healthcare-integration'],
+  ['EHR Development & Modernization', 'Create a new clinical platform or modernize the one your team runs.', V + '/services/ehr-development-modernization'],
+  ['Medplum Development', 'Senior engineers fluent in Medplum and FHIR, from the first sprint.', V + '/services/medplum'],
+  ['Healthcare Integration & Interoperability', 'FHIR-native integrations between EHRs, labs and specialty systems.', V + '/services/healthcare-integration-interoperability'],
   ['Fast-track Builds', 'A demo-ready MVP built on proven healthcare foundations.', V + '/building-blocks'],
 ];
 ---
@@ -198,13 +198,13 @@ const services = [
           <ul class="tags" role="list"><Tag type="workflow" label="EHR migration" /></ul>
           <p>Moving off a legacy EHR or an off-the-shelf tool like Healthie.</p>
           <ul class="tags" role="list"><Tag type="segment" label="Chronic Disease" /><Tag type="segment" label="Weight & Metabolic" /></ul>
-          <a class="more" href={V + '/work/rewind'}>See Rewind and Everself <Icon name="arrow-right" /></a>
+          <a class="more" href="/work?segment=Chronic%20Disease,Weight%20%26%20Metabolic#work">See Rewind and Everself <Icon name="arrow-right" /></a>
         </li>
         <li class="last-row">
           <ul class="tags" role="list"><Tag type="workflow" label="Specialized clinical workflows" /></ul>
           <p>Care models that generic EHRs can’t fit without workarounds.</p>
           <ul class="tags" role="list"><Tag type="segment" label="Behavioral & Mental" /><Tag type="segment" label="Pediatric & Family" /></ul>
-          <a class="more" href={V + '/work/brain-health-usa'}>See Brain Health USA and Child Care <Icon name="arrow-right" /></a>
+          <a class="more" href="/work?segment=Behavioral%20%26%20Mental,Pediatric%20%26%20Family#work">See Brain Health USA and Child Care <Icon name="arrow-right" /></a>
         </li>
         <li class="last-row">
           <ul class="tags" role="list"><Tag type="workflow" label="Interoperability" /></ul>
@@ -337,7 +337,11 @@ const services = [
   links.forEach((l) => { const s = document.getElementById(l.dataset.toc!); if (s) io.observe(s); });
   // Collapse the TOC on small screens
   const det = document.querySelector<HTMLDetailsElement>('.toc details');
-  if (det && matchMedia('(max-width: 900px)').matches) det.open = false;
+  if (det) {
+    const mq = matchMedia('(max-width: 900px)');
+    if (mq.matches) det.open = false;
+    det.querySelector('summary')?.addEventListener('click', (e) => { if (!mq.matches) e.preventDefault(); });
+  }
   // Carousel arrows (only "More client cases" uses a carousel, benchmark #6)
   const track = document.querySelector<HTMLElement>('[data-track]');
   document.querySelectorAll<HTMLButtonElement>('[data-scroll]').forEach((b) => b.addEventListener('click', () => track?.scrollBy({ left: Number(b.dataset.scroll) * track.clientWidth * 0.9, behavior: 'smooth' })));
