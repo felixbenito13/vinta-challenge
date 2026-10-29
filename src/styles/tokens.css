@@ -1,0 +1,90 @@
+/* Design tokens — exported from the Figma DS "Vinta - Design system"
+   Primitives → semantic (Material 3 / Carbon structure). Names match Figma variables. */
+
+@font-face { font-family: 'Geist'; src: url('/fonts/Geist-Light.woff2') format('woff2'); font-weight: 300; font-display: swap; }
+@font-face { font-family: 'Geist'; src: url('/fonts/Geist-Regular.woff2') format('woff2'); font-weight: 400; font-display: swap; }
+@font-face { font-family: 'Geist'; src: url('/fonts/Geist-Medium.woff2') format('woff2'); font-weight: 500; font-display: swap; }
+@font-face { font-family: 'Geist Mono'; src: url('/fonts/GeistMono-Medium.woff2') format('woff2'); font-weight: 500; font-display: swap; }
+
+:root {
+  /* Primitives */
+  --blue-700: #0050ff; --blue-800: #003dc3; --blue-pressed: #002fdb; --blue-900: #001b55;
+  --navy-950: #050842;
+  --ink-950: #010611; --ink-900: #172235; --ink-600: #465a78; --ink-500: #657ca1; --ink-400: #7d8daa;
+  --neutral-white: #ffffff; --neutral-100: #eef0f3;
+  --surface-tint: #f6f9ff; --surface-panel: #e5eafd; --surface-track: #edf0fd;
+  --line-divider: #e2e5ea; --line-field: #ccd7eb; --line-rule: #a3acbe;
+  --teal-500: #1b9e8f; --mint-300: #76d7c4; --mint-100: #ddf5f0; --pine-700: #0c6344;
+  --grape-600: #9c36b5; --grape-800: #7a2a8f; --grape-100: #f4e8f8;
+  --red-600: #d92d20; --red-700: #b42318;
+
+  /* Semantic · text */
+  --text-heading: var(--navy-950);
+  --text-primary: var(--ink-900);
+  --text-secondary: var(--ink-600);
+  --text-muted-large: var(--ink-500);
+  --text-inverse: var(--neutral-white);
+  --text-link: var(--blue-700);
+  --text-accent: var(--blue-700);
+  --text-danger: var(--red-700);
+  /* Semantic · background */
+  --bg-page: var(--neutral-white);
+  --bg-subtle: var(--surface-tint);
+  --bg-panel: var(--surface-panel);
+  --bg-track: var(--surface-track);
+  --bg-brand: var(--blue-700);
+  --bg-brand-hover: var(--blue-800);
+  --bg-brand-pressed: var(--blue-pressed);
+  --bg-brand-deep: var(--blue-900);
+  /* Semantic · border */
+  --border-default: var(--line-divider);
+  --border-subtle: var(--line-field);
+  --border-input: var(--ink-500);
+  --border-focus: var(--blue-700);
+  /* Tags: one color per type of information */
+  --tag-segment-bg: var(--surface-panel); --tag-segment-text: var(--blue-800);
+  --tag-solution-bg: var(--mint-100); --tag-solution-text: var(--pine-700);
+  --tag-service-bg: var(--grape-100); --tag-service-text: var(--grape-800);
+  --tag-workflow-bg: var(--neutral-100); --tag-workflow-text: var(--ink-900);
+  /* Filters */
+  --filter-default-bg: var(--surface-track); --filter-default-text: var(--ink-900);
+  --filter-hover-bg: var(--surface-panel);
+  --filter-selected-bg: var(--blue-700); --filter-selected-hover-bg: var(--blue-800); --filter-selected-text: var(--neutral-white);
+  /* Illustration */
+  --illustration-ink: var(--navy-950);
+  --illustration-accent: var(--teal-500);
+  --illustration-highlight: var(--mint-300);
+
+  /* Spacing */
+  --space-2: 2px; --space-4: 4px; --space-8: 8px; --space-12: 12px; --space-16: 16px; --space-20: 20px;
+  --space-24: 24px; --space-32: 32px; --space-40: 40px; --space-48: 48px; --space-64: 64px; --space-80: 80px;
+  --space-96: 96px; --space-120: 120px;
+  /* Radius */
+  --radius-sm: 4px; --radius-md: 8px; --radius-button: 10px; --radius-lg: 12px; --radius-xl: 16px;
+  --radius-2xl: 20px; --radius-card: 24px; --radius-full: 999px;
+  /* Elevation */
+  --shadow-sm: 0 4px 12px -3px #575d9c4d;
+  --shadow-md: 0 4px 20px -4px #1974ca33;
+  --shadow-brand: 0 10px 30px 0 #0050ff38;
+  --shadow-brand-lift: 0 30px 66px 0 #003dc36b;
+
+  /* Typography (Moderat in the brand; Geist is the licensed fallback) */
+  --font-sans: 'Geist', 'Moderat', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono: 'Geist Mono', ui-monospace, 'SFMono-Regular', monospace;
+
+  --display-h1: 300 clamp(44px, 6vw, 86px)/0.98 var(--font-sans);
+  --h2: 300 clamp(36px, 4.2vw, 56px)/1.06 var(--font-sans);
+  --h3: 300 clamp(28px, 3.4vw, 48px)/1.05 var(--font-sans);
+  --h4: 300 clamp(26px, 2.6vw, 34px)/1.1 var(--font-sans);
+  --card-title: 300 clamp(18px, 1.6vw, 22px)/1.2 var(--font-sans);
+  --lede: 300 clamp(17px, 1.5vw, 20px)/1.5 var(--font-sans);
+  --body: 400 16px/1.5 var(--font-sans);
+  --body-small: 400 14px/1.5 var(--font-sans);
+  --nav: 300 14px/1.3 var(--font-sans);
+  --tag: 500 13px/1.5 var(--font-sans);
+  --label-mono: 500 12px/1 var(--font-mono);
+
+  --container: 1200px;
+  --gutter: clamp(16px, 8.33vw, 120px);
+  --header-h: 72px;
+}

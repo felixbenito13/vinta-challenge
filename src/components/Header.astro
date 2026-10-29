@@ -1,0 +1,72 @@
+---
+const V = 'https://www.vintasoftware.com';
+const links = [
+  ['Work', '/work'], ['Services', V + '/services'], ['Solutions', V + '/solutions'],
+  ['Building Blocks', V + '/building-blocks'], ['Blog', V + '/blog'], ['About', V + '/about-us'],
+];
+const current = Astro.url.pathname.startsWith('/work') ? 'Work' : '';
+---
+<header class="site-header" data-header>
+  <div class="bar">
+    <a href="/work" class="logo" aria-label="Vinta, go to Work"><img src="/img/vinta-logo.svg" alt="Vinta" width="110" height="24" /></a>
+    <nav aria-label="Main" class="nav" id="main-nav">
+      <ul role="list">
+        {links.map(([label, href]) => (
+          <li><a href={href} aria-current={label === current ? 'page' : undefined}>{label}</a></li>
+        ))}
+      </ul>
+    </nav>
+    <a class="btn btn--primary btn--md cta" href="#contact">Let’s talk</a>
+    <button class="menu-btn" aria-expanded="false" aria-controls="main-nav" data-menu>
+      <span class="sr-only">Menu</span>
+      <svg class="icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="M4 6h12M4 10h12M4 14h12"/></svg>
+    </button>
+  </div>
+</header>
+
+<style>
+  .site-header { position: sticky; top: 0; z-index: 50; background: rgba(255,255,255,.92); backdrop-filter: blur(10px); border-bottom: 1px solid var(--border-default); transition: transform .25s ease; }
+  .site-header.is-hidden { transform: translateY(-100%); }
+  .site-header.is-scrolled { box-shadow: var(--shadow-sm); }
+  .bar { height: var(--header-h); display: flex; align-items: center; gap: 24px; padding: 0 var(--gutter); max-width: calc(var(--container) + 2 * var(--gutter)); margin: 0 auto; }
+  .logo { display: flex; margin-right: auto; }
+  .logo img { width: 110px; height: auto; }
+  .nav ul { display: flex; gap: 28px; margin: 0; padding: 0; list-style: none; }
+  .nav a { font: var(--nav); letter-spacing: .035em; color: var(--text-primary); text-decoration: none; padding: 8px 0; position: relative; }
+  .nav a:hover { color: var(--text-link); }
+  .nav a[aria-current='page'] { color: var(--text-link); }
+  .nav a[aria-current='page']::after { content: ''; position: absolute; left: 50%; bottom: 0; width: 20px; height: 2px; background: currentColor; transform: translateX(-50%); border-radius: 2px; }
+  .nav { margin-right: auto; }
+  .menu-btn { display: none; background: none; border: 0; padding: 10px; cursor: pointer; color: var(--text-heading); }
+  @media (max-width: 960px) {
+    .nav { position: absolute; top: var(--header-h); left: 0; right: 0; background: var(--bg-page); border-bottom: 1px solid var(--border-default); display: none; margin: 0; }
+    .nav.is-open { display: block; }
+    .nav ul { flex-direction: column; gap: 0; padding: 8px var(--gutter) 16px; }
+    .nav a { display: block; padding: 12px 0; font-size: 16px; }
+    .nav a[aria-current='page']::after { display: none; }
+    .menu-btn { display: inline-flex; }
+    .logo { margin-right: auto; }
+  }
+  @media (max-width: 400px) { .cta { display: none; } }
+</style>
+
+<script>
+  const header = document.querySelector<HTMLElement>('[data-header]')!;
+  const btn = document.querySelector<HTMLButtonElement>('[data-menu]')!;
+  const nav = document.getElementById('main-nav')!;
+  btn.addEventListener('click', () => {
+    const open = btn.getAttribute('aria-expanded') === 'true';
+    btn.setAttribute('aria-expanded', String(!open));
+    nav.classList.toggle('is-open', !open);
+  });
+  // Hide on scroll down, show on scroll up (benchmark #24). Disabled with reduced motion.
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let last = scrollY;
+  addEventListener('scroll', () => {
+    const y = scrollY;
+    header.classList.toggle('is-scrolled', y > 8);
+    if (!reduce && btn.getAttribute('aria-expanded') !== 'true') header.classList.toggle('is-hidden', y > last && y > 240);
+    last = y;
+  }, { passive: true });
+  header.addEventListener('focusin', () => header.classList.remove('is-hidden'));
+</script>

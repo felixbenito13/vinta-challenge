@@ -1,0 +1,26 @@
+---
+import Icon from './Icon.astro';
+---
+<aside class="nl" aria-labelledby="nl-title">
+  <div class="copy">
+    <h2 id="nl-title" class="card-title"><Icon name="mail" /> Stay up to date with Vinta</h2>
+    <p class="small">Get our latest healthcare work, insights and news by email.</p>
+  </div>
+  <form name="newsletter" method="POST" action="/thanks" data-netlify="true" netlify-honeypot="bot-field" class="form">
+    <input type="hidden" name="form-name" value="newsletter" />
+    <p class="sr-only"><label>Leave this empty <input name="bot-field" tabindex="-1" autocomplete="off" /></label></p>
+    <div class="field"><label for="nl-email">Work email</label><input id="nl-email" name="email" type="email" autocomplete="email" required placeholder="name@company.com" /></div>
+    <button class="btn btn--secondary" type="submit">Subscribe</button>
+  </form>
+</aside>
+<style>
+  .nl { display: flex; justify-content: space-between; align-items: flex-end; gap: 32px; background: var(--bg-subtle); border-radius: var(--radius-xl); padding: 32px; }
+  .copy { display: flex; flex-direction: column; gap: 8px; }
+  .card-title { display: flex; gap: 10px; align-items: center; }
+  .card-title :global(svg) { color: var(--text-accent); }
+  .form { display: flex; gap: 12px; align-items: flex-end; }
+  .field { display: flex; flex-direction: column; gap: 6px; }
+  label { font: var(--body-small); }
+  input { width: 320px; height: 48px; padding: 0 14px; border: 1px solid var(--border-input); border-radius: var(--radius-md); }
+  @media (max-width: 800px) { .nl { flex-direction: column; align-items: stretch; } .form { flex-wrap: wrap; } input { width: 100%; } .field { flex: 1 1 220px; } }
+</style>

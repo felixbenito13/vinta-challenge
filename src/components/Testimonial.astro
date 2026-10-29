@@ -1,0 +1,51 @@
+---
+import Icon from './Icon.astro';
+interface Props { video?: boolean }
+const { video = false } = Astro.props;
+---
+<figure class={`testimonial ${video ? 'has-video' : ''}`}>
+  <div class="quote">
+    <span class="mark" aria-hidden="true">“</span>
+    <blockquote class="h4">One of the most responsive agencies I have ever worked with. They have strong ownership and are proactive in finding ways to improve processes.</blockquote>
+    <figcaption class="person">
+      <img src="/img/carlos-montes-96.webp" alt="" width="48" height="48" loading="lazy" />
+      <span><strong>Carlos Montes</strong><span class="small">CTO, Quilted Health</span></span>
+    </figcaption>
+  </div>
+  {video && (
+    <div class="video" data-yt="8RU8aiwxAP0">
+      <button type="button" class="play" aria-label="Play video: Enabling healthtechs using Medplum, full client testimonial with Quilted Health (YouTube)">
+        <img src="/img/quilted-video-thumb.webp" alt="" width="960" height="540" loading="lazy" decoding="async" />
+        <span class="play-icon"><Icon name="play" /></span>
+      </button>
+    </div>
+  )}
+</figure>
+<style>
+  .testimonial { display: grid; grid-template-columns: 1fr; gap: 48px; align-items: center; background: var(--bg-subtle); border-radius: var(--radius-card); padding: 48px; }
+  .has-video { grid-template-columns: 1.1fr 1fr; }
+  .quote { display: flex; flex-direction: column; gap: 24px; }
+  .mark { font: 300 56px/0.6 var(--font-sans); color: var(--text-accent); height: 24px; }
+  blockquote { max-width: 760px; }
+  .person { display: flex; gap: 14px; align-items: center; }
+  .person img { width: 48px; height: 48px; border-radius: 50%; object-fit: cover; }
+  .person > span { display: flex; flex-direction: column; }
+  .person strong { font-weight: 400; color: var(--text-heading); }
+  .video { border-radius: var(--radius-xl); overflow: hidden; aspect-ratio: 16/9; background: var(--illustration-ink); }
+  .play { position: relative; display: block; width: 100%; height: 100%; padding: 0; border: 0; cursor: pointer; background: none; }
+  .play img { width: 100%; height: 100%; object-fit: cover; }
+  .play-icon { position: absolute; right: 20px; bottom: 20px; width: 64px; height: 64px; border-radius: 50%; background: var(--bg-page); color: var(--text-link); display: grid; place-items: center; box-shadow: var(--shadow-md); transition: transform .2s; }
+  .play:hover .play-icon { transform: scale(1.06); }
+  .video iframe { width: 100%; height: 100%; border: 0; display: block; }
+  @media (max-width: 900px) { .has-video { grid-template-columns: 1fr; } .testimonial { padding: 32px 24px; gap: 32px; } }
+</style>
+<script>
+  // Lite YouTube: load the iframe only on click (H9: no third-party JS on load).
+  document.querySelectorAll<HTMLElement>('[data-yt]').forEach((box) => {
+    box.querySelector('button')?.addEventListener('click', () => {
+      const id = box.dataset.yt;
+      box.innerHTML = `<iframe src="https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0&cc_load_policy=1" title="Enabling healthtechs using Medplum: client testimonial with Quilted Health" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>`;
+      box.querySelector('iframe')?.focus();
+    });
+  });
+</script>

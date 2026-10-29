@@ -1,0 +1,59 @@
+---
+import Tag from './Tag.astro';
+import Icon from './Icon.astro';
+import type { Case } from '../data/cases';
+interface Props { c: Case; layout?: 'grid' | 'featured'; headingLevel?: 'h2' | 'h3'; eager?: boolean }
+const { c, layout = 'grid', headingLevel = 'h3', eager = false } = Astro.props;
+const H = headingLevel;
+const ext = !c.internal;
+---
+<article class={`case-card case-card--${layout}`} data-case data-segment={c.segment} data-solution={c.solution} data-service={c.services.join('|')}>
+  <div class="media">
+    {layout === 'featured'
+      ? <img src={`/img/${c.image}-hero-1120.webp`} srcset={`/img/${c.image}-hero-640.webp 640w, /img/${c.image}-hero-1120.webp 1120w`} sizes="(max-width: 900px) 100vw, 560px" width="1120" height="625" alt="" loading={eager ? 'eager' : 'lazy'} decoding="async" fetchpriority={eager ? 'high' : undefined} />
+      : <img src={`/img/${c.image}-480.webp`} srcset={`/img/${c.image}-480.webp 480w, /img/${c.image}-768.webp 768w`} sizes="(max-width: 600px) 100vw, (max-width: 1100px) 50vw, 384px" width="768" height="429" alt="" loading="lazy" decoding="async" />}
+  </div>
+  <div class="body">
+    <p class="eyebrow client">{c.client}</p>
+    <ul class="tags" role="list">
+      <Tag type="segment" label={c.segment} />
+      <Tag type="solution" label={c.solution} />
+      {c.services.map((s) => <Tag type="service" label={s} />)}
+    </ul>
+    <H class="card-title title"><a href={c.url} class="stretched">{c.title}{ext && <span class="sr-only"> (opens the case on vintasoftware.com)</span>}</a></H>
+    <p class="small challenge">{c.challenge}</p>
+    {c.evidence
+      ? <p class="evidence"><Icon name="check" /><span><span class="sr-only">Result: </span>{c.evidence}</span></p>
+      : <p class="evidence evidence--missing"><Icon name="alert" /><span>Outcome metrics to confirm with the client</span></p>}
+    <span class="read" aria-hidden="true">Read the case <Icon name="arrow-right" /></span>
+  </div>
+</article>
+
+<style>
+  .case-card { position: relative; display: flex; flex-direction: column; background: var(--bg-page); border: 1px solid var(--border-default); border-radius: var(--radius-xl); overflow: hidden; transition: box-shadow .2s, transform .2s; }
+  .case-card:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
+  .case-card:focus-within { outline: 2px solid var(--border-focus); outline-offset: 2px; }
+  .media { background: var(--illustration-ink); aspect-ratio: 16 / 9; overflow: hidden; }
+  .media img { width: 100%; height: 100%; object-fit: cover; }
+  .body { display: flex; flex-direction: column; gap: 14px; padding: 24px; flex: 1; }
+  .client { margin-bottom: 2px; }
+  .title a { color: inherit; text-decoration: none; }
+  .stretched::after { content: ''; position: absolute; inset: 0; z-index: 1; }
+  .title a:focus-visible { outline: none; }
+  .evidence { display: flex; gap: 8px; align-items: flex-start; font: var(--body-small); color: var(--text-primary); }
+  .evidence :global(svg) { color: var(--pine-700); margin-top: 1px; }
+  .evidence--missing { color: var(--text-secondary); }
+  .evidence--missing :global(svg) { color: var(--text-secondary); }
+  .read { display: inline-flex; gap: 8px; align-items: center; color: var(--text-link); font: var(--body); margin-top: auto; padding-top: 6px; }
+  .case-card:hover .read { text-decoration: underline; text-underline-offset: 4px; }
+
+  .case-card--featured { flex-direction: row; }
+  .case-card--featured .media { flex: 0 0 47%; aspect-ratio: auto; }
+  .case-card--featured .body { padding: 40px; justify-content: center; gap: 16px; }
+  .case-card--featured .title { font: var(--h4); letter-spacing: -0.03em; }
+  @media (max-width: 900px) {
+    .case-card--featured { flex-direction: column; }
+    .case-card--featured .media { aspect-ratio: 16 / 9; }
+    .case-card--featured .body { padding: 24px; }
+  }
+</style>

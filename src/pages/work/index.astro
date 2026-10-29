@@ -1,0 +1,111 @@
+---
+import Base from '../../layouts/Base.astro';
+import CaseCard from '../../components/CaseCard.astro';
+import CtaTile from '../../components/CtaTile.astro';
+import FilterBar from '../../components/FilterBar.astro';
+import Testimonial from '../../components/Testimonial.astro';
+import BuildingBlocks from '../../components/BuildingBlocks.astro';
+import ContactForm from '../../components/ContactForm.astro';
+import Icon from '../../components/Icon.astro';
+import { cases, featured, beyond } from '../../data/cases';
+const strip = ['Maternal & Prenatal', 'Chronic Disease', 'Weight & Metabolic', 'Behavioral & Mental', 'Pediatric & Family', 'Care Navigation & Clinic Ops'];
+---
+<Base title="Healthcare work · Vinta" description="EHR rebuilds, Medplum platforms and clinical tools Vinta built with healthtech teams. Browse the work by healthcare segment, solution or service." preload="/img/quilted-health-hero-1120.webp">
+  <section class="section hero" aria-labelledby="hero-title">
+    <div class="container">
+      <div class="hero-row">
+        <div class="copy">
+          <p class="eyebrow">Clients · Healthcare work</p>
+          <h1 id="hero-title" class="display">Healthcare software, built around real care models</h1>
+          <p class="lede">From EHR rebuilds to Medplum platforms and clinical tools. Browse the work by healthcare segment, solution or service, and see what each project changed.</p>
+          <div class="ctas">
+            <a class="btn btn--primary" href="#contact">Plan your project with us <Icon name="arrow-right" /></a>
+            <a class="btn btn--ghost" href="#work">Browse the work</a>
+          </div>
+        </div>
+        <dl class="proof">
+          <div><dt class="sr-only">Experience</dt><dd><span class="h4">13 years</span><span class="small">building software for startups</span></dd></div>
+          <div><dt class="sr-only">Clients</dt><dd><span class="h4">25+</span><span class="small">long-term clients</span></dd></div>
+          <div><dt class="sr-only">Reviews</dt><dd><span class="h4">4.9 / 5</span><span class="small">average rating in client reviews</span></dd></div>
+        </dl>
+      </div>
+      <div class="strip">
+        <p class="eyebrow" id="strip-label">We’ve built for</p>
+        <ul class="tags" role="list" aria-labelledby="strip-label">
+          {strip.map((s) => <li><a class="tag tag--segment" href={`?segment=${encodeURIComponent(s)}#work`} data-filter-link={s}><Icon name="heart" />{s}</a></li>)}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--tight-top" aria-labelledby="featured-title" data-featured-section>
+    <div class="container stack">
+      <h2 id="featured-title" class="eyebrow">Featured case</h2>
+      <CaseCard c={featured} layout="featured" eager />
+    </div>
+  </section>
+
+  <section id="work" class="section section--subtle" aria-labelledby="work-title">
+    <div class="container stack-lg">
+      <header class="sh">
+        <p class="eyebrow">All healthcare work</p>
+        <h2 id="work-title" class="h2">Healthcare products we’ve <span class="accent">designed and built</span></h2>
+        <p class="lede">Filter by segment, solution type or Vinta service. Each card shows the challenge, the evidence and the service behind it.</p>
+      </header>
+      <FilterBar />
+      <ul class="grid" role="list">
+        {cases.map((c) => <li><CaseCard c={c} /></li>)}
+        <li class="tile"><CtaTile /></li>
+      </ul>
+      <p class="empty small" data-empty hidden>No case yet for this combination. Tell us about your care model, we’ve likely solved a similar workflow.</p>
+      <div class="beyond">
+        <h3 class="eyebrow">Beyond healthcare</h3>
+        <ul class="ruled ruled--3" role="list">
+          {beyond.map((b) => (
+            <li class="last-row">
+              <p class="eyebrow">{b.client} · {b.type}</p>
+              <p>{b.text}</p>
+              <a class="more" href={b.url}>Read the case<span class="sr-only">: {b.client}</span> <Icon name="arrow-right" /></a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--tight-bottom" aria-label="Client testimonial">
+    <div class="container"><Testimonial /></div>
+  </section>
+  <section class="section section--tight-top">
+    <div class="container"><BuildingBlocks /></div>
+  </section>
+
+  <ContactForm page="work" contextNote="Used the filters above? Your segment and solution will appear here, ready to edit." />
+</Base>
+
+<style>
+  .hero { padding-top: 96px; padding-bottom: 80px; }
+  .hero-row { display: grid; grid-template-columns: 1fr 360px; gap: 80px; align-items: end; }
+  .copy { display: flex; flex-direction: column; gap: 24px; }
+  .ctas { display: flex; gap: 16px; align-items: center; flex-wrap: wrap; padding-top: 8px; }
+  .proof { border: 1px solid var(--border-default); }
+  .proof > div { padding: 20px 24px; }
+  .proof > div + div { border-top: 1px solid var(--border-default); }
+  .proof dd { display: flex; flex-direction: column; gap: 4px; }
+  .strip { display: flex; gap: 16px; align-items: center; margin-top: 48px; padding-top: 24px; border-top: 1px solid var(--border-default); }
+  .strip .eyebrow { white-space: nowrap; }
+  .stack { display: flex; flex-direction: column; gap: 20px; }
+  .stack-lg { display: flex; flex-direction: column; gap: 40px; }
+  .sh { display: flex; flex-direction: column; gap: 16px; max-width: 880px; }
+  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; list-style: none; margin: 0; padding: 0; }
+  .grid > li { display: flex; }
+  .grid > li > :global(*) { flex: 1; }
+  .empty { text-align: center; padding: 24px; }
+  .beyond { display: flex; flex-direction: column; gap: 16px; }
+  .beyond p:nth-child(2) { color: var(--text-primary); }
+  .more { display: inline-flex; gap: 8px; align-items: center; margin-top: auto; text-decoration: none; }
+  .more:hover { text-decoration: underline; text-underline-offset: 4px; }
+  @media (max-width: 1100px) { .grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 900px) { .hero-row { grid-template-columns: 1fr; gap: 40px; } .strip { flex-direction: column; align-items: flex-start; } }
+  @media (max-width: 640px) { .grid { grid-template-columns: 1fr; } .hero { padding-top: 56px; padding-bottom: 56px; } }
+</style>

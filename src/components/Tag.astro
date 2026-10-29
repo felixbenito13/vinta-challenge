@@ -1,0 +1,8 @@
+---
+import Icon from './Icon.astro';
+import { tagIcon } from '../data/cases';
+interface Props { type: 'segment' | 'solution' | 'service' | 'workflow'; label: string; icon?: boolean }
+const { type, label, icon = true } = Astro.props;
+const typeName = { segment: 'Segment', solution: 'Solution', service: 'Service', workflow: 'Workflow' }[type];
+---
+<li class={`tag tag--${type}`}>{icon && <Icon name={tagIcon[type]} />}<span class="sr-only">{typeName}: </span>{label}</li>

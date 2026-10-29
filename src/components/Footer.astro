@@ -1,0 +1,45 @@
+---
+const V = 'https://www.vintasoftware.com';
+const cols = [
+  ['Healthcare development', [['EHR Development', V + '/ehr-development'], ['EHR Modernization', V + '/ehr-modernization'], ['Healthcare Discovery', V + '/healthcare-discovery'], ['Medplum Development', V + '/medplum'], ['Integrations & Interoperability', V + '/healthcare-integration']]],
+  ['Company', [['About us', V + '/about-us'], ['Building Blocks', V + '/building-blocks'], ['Open Source', V + '/open-source'], ['Our Newsletter', V + '/newsletter'], ['Jobs', V + '/careers']]],
+] as const;
+---
+<footer class="footer">
+  <div class="container">
+    <div class="top">
+      <div class="brand">
+        <img src="/img/vinta-logo.svg" alt="Vinta" width="110" height="24" class="logo" />
+        <p>A product and engineering partner for healthcare. We turn complex clinical needs into connected software, built around your care model.</p>
+        <a href="mailto:contact@vintasoftware.com">contact@vintasoftware.com</a>
+      </div>
+      {cols.map(([title, links]) => (
+        <nav aria-label={title} class="col">
+          <h2 class="eyebrow">{title}</h2>
+          <ul role="list">{links.map(([l, h]) => <li><a href={h}>{l}</a></li>)}</ul>
+        </nav>
+      ))}
+      <div class="col">
+        <h2 class="eyebrow">Offices</h2>
+        <ul role="list"><li>Miami, FL · United States</li><li>Recife, PE · Brazil</li></ul>
+      </div>
+    </div>
+    <div class="bottom">
+      <p>© 2026 Vinta Software Studio LLC. All rights reserved.</p>
+      <p><a href={V + '/privacy-policy'}>Privacy Policy</a> · <a href={V + '/cookies-policy'}>Cookies Policy</a></p>
+    </div>
+  </div>
+</footer>
+<style>
+  .footer { background: var(--bg-brand-deep); color: var(--text-inverse); padding: 72px var(--gutter) 40px; }
+  .top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; }
+  .brand { display: flex; flex-direction: column; gap: 16px; max-width: 420px; }
+  .logo { filter: brightness(0) invert(1); width: 110px; }
+  .footer a { color: var(--text-inverse); text-decoration: none; }
+  .footer a:hover { text-decoration: underline; text-underline-offset: 3px; }
+  .col ul { display: flex; flex-direction: column; gap: 12px; margin-top: 12px; font: var(--body-small); }
+  .eyebrow { color: var(--text-inverse); }
+  .bottom { display: flex; justify-content: space-between; gap: 24px; flex-wrap: wrap; border-top: 1px solid rgba(255,255,255,.2); margin-top: 48px; padding-top: 24px; font: var(--body-small); }
+  @media (max-width: 900px) { .top { grid-template-columns: 1fr 1fr; } .brand { grid-column: 1 / -1; } }
+  @media (max-width: 480px) { .top { grid-template-columns: 1fr; } }
+</style>

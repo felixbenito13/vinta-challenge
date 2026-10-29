@@ -1,0 +1,83 @@
+---
+import Icon from './Icon.astro';
+interface Props { page: string; segment?: string; workflow?: string; contextNote: string }
+const { page, segment = '', workflow = '', contextNote } = Astro.props;
+const needs = ['A new product or MVP', 'EHR modernization', 'Integrations', 'Not sure yet'];
+const preNeed = workflow ? 'EHR modernization' : '';
+---
+<section id="contact" class="section section--subtle" aria-labelledby="contact-title">
+  <div class="container form-wrap">
+    <div class="intro">
+      <p class="eyebrow">Book a discovery call</p>
+      <h2 id="contact-title" class="h3">Facing a similar challenge?</h2>
+      <p class="lede">Tell us a bit about your care model. A senior engineer, not a sales script, will reply within one business day.</p>
+    </div>
+    <form name="contact" method="POST" action="/thanks" data-netlify="true" netlify-honeypot="bot-field" class="form" data-contact-form>
+      <input type="hidden" name="form-name" value="contact" />
+      <input type="hidden" name="page" value={page} />
+      <p class="sr-only"><label>Leave this empty <input name="bot-field" tabindex="-1" autocomplete="off" /></label></p>
+
+      <div class="context">
+        <p class="small" data-context-note>{contextNote}</p>
+        <ul class="tags" role="list" data-context-tags>
+          {segment && <li class="tag tag--segment">{segment}</li>}
+          {workflow && <li class="tag tag--workflow">{workflow}</li>}
+        </ul>
+        <input type="hidden" name="segment" value={segment} data-context-segment />
+        <input type="hidden" name="solution" value="" data-context-solution />
+        <input type="hidden" name="workflow" value={workflow} />
+      </div>
+
+      <div class="row">
+        <div class="field"><label for={`name-${page}`}>Name</label><input id={`name-${page}`} name="name" autocomplete="name" required placeholder="Your name" /></div>
+        <div class="field"><label for={`email-${page}`}>Work email</label><input id={`email-${page}`} name="email" type="email" autocomplete="email" required placeholder="name@company.com" /></div>
+      </div>
+      <div class="row">
+        <div class="field"><label for={`stage-${page}`}>Company stage</label>
+          <select id={`stage-${page}`} name="stage"><option value="">Select a stage</option><option>Pre-seed or idea</option><option>Seed</option><option>Series A or later</option><option>Established provider or health system</option></select></div>
+        <div class="field"><label for={`care-${page}`}>Care model</label>
+          <input id={`care-${page}`} name="care-model" value={segment ? (segment === 'Maternal & Prenatal' ? 'Maternal & prenatal care' : segment) : ''} placeholder="e.g. Virtual-first diabetes care" data-context-care /></div>
+      </div>
+      <fieldset class="need">
+        <legend>What do you need?</legend>
+        <div class="pills">
+          {needs.map((n) => (
+            <label class="pill"><input type="radio" name="need" value={n} checked={n === preNeed} /><span><Icon name="check" />{n}</span></label>
+          ))}
+        </div>
+      </fieldset>
+      <div class="field"><label for={`msg-${page}`}>Anything else? <span class="opt">(optional)</span></label><textarea id={`msg-${page}`} name="message" rows="3" placeholder="Your timeline, constraints or questions"></textarea></div>
+      <div class="submit">
+        <button class="btn btn--primary" type="submit">Book a discovery call <Icon name="arrow-right" /></button>
+        <p class="small">By sending, you agree to our <a href="https://www.vintasoftware.com/privacy-policy">Privacy Policy</a>.</p>
+      </div>
+    </form>
+  </div>
+</section>
+<style>
+  .form-wrap { display: grid; grid-template-columns: 400px 1fr; gap: 80px; background: var(--bg-panel); border-radius: var(--radius-card); padding: 56px; }
+  .intro { display: flex; flex-direction: column; gap: 16px; }
+  .form { display: flex; flex-direction: column; gap: 20px; }
+  .context { display: flex; flex-direction: column; gap: 10px; }
+  .context .tags:empty { display: none; }
+  .row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .field { display: flex; flex-direction: column; gap: 6px; }
+  label, legend { font: var(--body-small); color: var(--text-primary); }
+  .opt { color: var(--text-secondary); }
+  input:not([type=radio]), select, textarea { height: 48px; padding: 0 14px; border: 1px solid var(--border-input); border-radius: var(--radius-md); background: var(--bg-page); color: var(--text-primary); }
+  textarea { height: auto; padding: 12px 14px; resize: vertical; }
+  input::placeholder, textarea::placeholder { color: var(--text-secondary); }
+  input:focus-visible, select:focus-visible, textarea:focus-visible { outline: 2px solid var(--border-focus); outline-offset: 0; border-color: var(--border-focus); }
+  .need { border: 0; padding: 0; margin: 0; }
+  .need legend { margin-bottom: 8px; }
+  .pills { display: flex; flex-wrap: wrap; gap: 8px; }
+  .pill input { position: absolute; opacity: 0; pointer-events: none; }
+  .pill span { display: inline-flex; align-items: center; gap: 6px; height: 40px; padding: 0 16px; border-radius: var(--radius-full); background: var(--bg-page); color: var(--filter-default-text); font: var(--body-small); cursor: pointer; }
+  .pill span :global(svg) { width: 16px; height: 16px; display: none; }
+  .pill input:checked + span { background: var(--filter-selected-bg); color: var(--filter-selected-text); }
+  .pill input:checked + span :global(svg) { display: block; }
+  .pill input:focus-visible + span { outline: 2px solid var(--border-focus); outline-offset: 2px; }
+  .submit { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+  @media (max-width: 1000px) { .form-wrap { grid-template-columns: 1fr; gap: 32px; padding: 32px 20px; } }
+  @media (max-width: 600px) { .row { grid-template-columns: 1fr; } }
+</style>

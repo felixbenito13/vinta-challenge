@@ -1,0 +1,19 @@
+---
+import Icon from './Icon.astro';
+---
+<aside class="bb" aria-labelledby="bb-title">
+  <div class="copy">
+    <p class="eyebrow">The experience behind Building Blocks</p>
+    <h2 id="bb-title" class="h3">Every project here taught us something we now start from.</h2>
+    <p>Building Blocks were created from what we learned across these projects. They came later, so the cases on this page were built without them.</p>
+  </div>
+  <a class="btn btn--secondary" href="https://www.vintasoftware.com/building-blocks">See how Building Blocks work <Icon name="arrow-right" /></a>
+</aside>
+<style>
+  .bb { display: flex; align-items: center; justify-content: space-between; gap: 48px; background: var(--bg-brand-deep); color: var(--text-inverse); border-radius: var(--radius-card); padding: 64px; }
+  .copy { display: flex; flex-direction: column; gap: 16px; max-width: 720px; }
+  .eyebrow { color: var(--mint-300); }
+  .h3 { color: var(--text-inverse); }
+  .copy p:last-child { color: var(--surface-panel); font: var(--lede); }
+  @media (max-width: 900px) { .bb { flex-direction: column; align-items: flex-start; padding: 40px 24px; gap: 32px; } }
+</style>

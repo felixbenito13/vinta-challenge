@@ -1,0 +1,157 @@
+---
+import Icon from './Icon.astro';
+import { SEGMENTS, SOLUTIONS, SERVICES, cases, featured } from '../data/cases';
+const all = [featured, ...cases];
+const groups = [
+  { key: 'segment', label: 'Segment', options: SEGMENTS, count: (o: string) => all.filter((c) => c.segment === o).length },
+  { key: 'solution', label: 'Solution', options: SOLUTIONS, count: (o: string) => all.filter((c) => c.solution === o).length },
+  { key: 'service', label: 'Service', options: SERVICES, count: (o: string) => all.filter((c) => c.services.includes(o)).length },
+];
+---
+<div class="filter" data-filter>
+  <div class="row">
+    <span class="eyebrow" id="filter-label">Filter by</span>
+    {groups.map((g) => (
+      <div class="dd" data-dd={g.key}>
+        <button type="button" class="trigger" aria-expanded="false" aria-controls={`menu-${g.key}`} aria-describedby="filter-label">
+          <span data-trigger-label>{g.label}</span><Icon name="chevron-down" />
+        </button>
+        <div class="menu" id={`menu-${g.key}`} role="group" aria-label={`${g.label} options`} hidden>
+          {g.options.map((o) => (
+            <label class="option"><input type="checkbox" value={o} data-dim={g.key} /><span class="box" aria-hidden="true"><Icon name="check" /></span><span class="txt">{o}</span><span class="count">{g.count(o)}<span class="sr-only"> cases</span></span></label>
+          ))}
+          <div class="menu-foot"><span class="small" data-selected-count>0 selected</span><button type="button" class="link" data-clear-dim={g.key}>Clear</button></div>
+        </div>
+      </div>
+    ))}
+    <span class="spacer"></span>
+    <p class="small results" aria-live="polite" data-results>Showing all {all.length} healthcare cases</p>
+    <button type="button" class="link" data-clear-all hidden>Clear all</button>
+  </div>
+  <ul class="chips" role="list" data-chips hidden></ul>
+</div>
+
+<style>
+  .filter { position: sticky; top: calc(var(--header-h) + 12px); z-index: 20; background: var(--bg-page); border: 1px solid var(--border-default); border-radius: var(--radius-xl); padding: 12px 16px 12px 24px; transition: top .25s; }
+  :global(.site-header.is-hidden) ~ main .filter { top: 12px; }
+  .row { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+  .spacer { flex: 1; }
+  .dd { position: relative; }
+  .trigger { display: inline-flex; align-items: center; gap: 8px; height: 40px; padding: 0 14px 0 18px; border-radius: var(--radius-full); border: 1px solid transparent; background: var(--filter-default-bg); color: var(--filter-default-text); font: var(--body-small); cursor: pointer; }
+  .trigger:hover { background: var(--filter-hover-bg); }
+  .trigger[aria-expanded='true'] { background: var(--bg-page); border-color: var(--border-input); }
+  .trigger[aria-expanded='true'] :global(svg) { transform: rotate(180deg); }
+  .trigger.is-active { background: var(--filter-selected-bg); color: var(--filter-selected-text); }
+  .trigger.is-active:hover { background: var(--filter-selected-hover-bg); }
+  .trigger :global(svg) { width: 18px; height: 18px; transition: transform .15s; }
+  .menu { position: absolute; top: calc(100% + 8px); left: 0; width: 320px; max-height: 70vh; overflow: auto; background: var(--bg-page); border: 1px solid var(--border-default); border-radius: var(--radius-lg); box-shadow: var(--shadow-md); padding: 8px; z-index: 30; }
+  .option { display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: var(--radius-md); cursor: pointer; font: var(--body-small); }
+  .option:hover { background: var(--bg-subtle); }
+  .option input { position: absolute; opacity: 0; }
+  .box { width: 18px; height: 18px; border: 1.5px solid var(--border-input); border-radius: 4px; display: grid; place-items: center; flex: none; background: var(--bg-page); }
+  .box :global(svg) { width: 14px; height: 14px; color: var(--text-inverse); opacity: 0; }
+  .option input:checked + .box { background: var(--bg-brand); border-color: var(--bg-brand); }
+  .option input:checked + .box :global(svg) { opacity: 1; }
+  .option input:focus-visible + .box { outline: 2px solid var(--border-focus); outline-offset: 2px; }
+  .txt { flex: 1; color: var(--text-primary); }
+  .count { color: var(--text-secondary); }
+  .menu-foot { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border-default); margin-top: 4px; padding: 12px 12px 4px; }
+  .link { background: none; border: 0; color: var(--text-link); font: var(--body-small); cursor: pointer; padding: 8px 4px; }
+  .link:hover { text-decoration: underline; }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; list-style: none; margin: 12px 0 0; padding: 12px 0 0; border-top: 1px solid var(--border-default); }
+  .chips :global(button) { display: inline-flex; align-items: center; gap: 6px; height: 32px; padding: 0 12px; border-radius: var(--radius-full); border: 0; background: var(--filter-selected-bg); color: var(--filter-selected-text); font: var(--body-small); cursor: pointer; }
+  .chips :global(svg) { width: 14px; height: 14px; }
+  @media (max-width: 760px) {
+    .filter { position: static; padding: 16px; }
+    .row > .eyebrow { width: 100%; }
+    .spacer { display: none; }
+    .results { width: 100%; }
+    .menu { width: min(320px, calc(100vw - 48px)); }
+    .dd:last-of-type .menu { left: auto; right: 0; }
+  }
+</style>
+
+<script>
+  type Dim = 'segment' | 'solution' | 'service';
+  const root = document.querySelector<HTMLElement>('[data-filter]');
+  if (root) {
+    const state: Record<Dim, Set<string>> = { segment: new Set(), solution: new Set(), service: new Set() };
+    const labels: Record<Dim, string> = { segment: 'Segment', solution: 'Solution', service: 'Service' };
+    const cards = [...document.querySelectorAll<HTMLElement>('[data-case]')];
+    const featured = document.querySelector<HTMLElement>('[data-featured-section]');
+    const empty = document.querySelector<HTMLElement>('[data-empty]');
+    const results = root.querySelector<HTMLElement>('[data-results]')!;
+    const chips = root.querySelector<HTMLElement>('[data-chips]')!;
+    const clearAll = root.querySelector<HTMLButtonElement>('[data-clear-all]')!;
+    const boxes = [...root.querySelectorAll<HTMLInputElement>('input[type=checkbox]')];
+    const total = cards.length;
+
+    const matches = (el: HTMLElement) =>
+      (!state.segment.size || state.segment.has(el.dataset.segment!)) &&
+      (!state.solution.size || state.solution.has(el.dataset.solution!)) &&
+      (!state.service.size || el.dataset.service!.split('|').some((s) => state.service.has(s)));
+
+    const close = (except?: Element) => root.querySelectorAll<HTMLElement>('.dd').forEach((dd) => {
+      if (dd === except) return;
+      dd.querySelector('.trigger')!.setAttribute('aria-expanded', 'false');
+      (dd.querySelector('.menu') as HTMLElement).hidden = true;
+    });
+
+    function render(push = true) {
+      const active = (Object.keys(state) as Dim[]).some((k) => state[k].size);
+      let n = 0;
+      cards.forEach((c) => { const ok = matches(c); if (ok) n++; if (!c.closest('[data-featured-section]')) (c.closest('li') ?? c).hidden = !ok; });
+      if (featured) featured.hidden = active && !matches(featured.querySelector('[data-case]')!);
+      if (empty) empty.hidden = n > 0;
+      const desc = (Object.keys(state) as Dim[]).flatMap((k) => [...state[k]]).join(' · ');
+      results.textContent = active ? `${n} ${n === 1 ? 'case matches' : 'cases match'} ${desc}` : `Showing all ${total} healthcare cases`;
+      clearAll.hidden = !active;
+      chips.hidden = !active;
+      chips.innerHTML = '';
+      (Object.keys(state) as Dim[]).forEach((k) => state[k].forEach((v) => {
+        const li = document.createElement('li');
+        li.innerHTML = `<button type="button" aria-label="Remove filter ${v}">${v}<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="m5 5 10 10M15 5 5 15"/></svg></button>`;
+        li.querySelector('button')!.addEventListener('click', () => { state[k].delete(v); sync(); });
+        chips.appendChild(li);
+      }));
+      root.querySelectorAll<HTMLElement>('.dd').forEach((dd) => {
+        const k = dd.dataset.dd as Dim; const s = state[k].size;
+        const t = dd.querySelector('.trigger')!; t.classList.toggle('is-active', s > 0);
+        t.querySelector('[data-trigger-label]')!.textContent = s ? `${labels[k]} · ${s}` : labels[k];
+        dd.querySelector('[data-selected-count]')!.textContent = `${s} selected`;
+      });
+      // Contact form follows the active filters (benchmark #19)
+      const seg = [...state.segment].join(', '), sol = [...state.solution].join(', ');
+      document.querySelectorAll<HTMLFormElement>('[data-contact-form]').forEach((f) => {
+        (f.querySelector('[data-context-segment]') as HTMLInputElement).value = seg;
+        (f.querySelector('[data-context-solution]') as HTMLInputElement).value = sol;
+        const care = f.querySelector('[data-context-care]') as HTMLInputElement; if (care && !care.dataset.touched) care.value = seg;
+        const tags = f.querySelector('[data-context-tags]')!;
+        tags.innerHTML = [...state.segment].map((v) => `<li class="tag tag--segment">${v}</li>`).join('') + [...state.solution].map((v) => `<li class="tag tag--solution">${v}</li>`).join('');
+        f.querySelector('[data-context-note]')!.textContent = active ? 'Picked from the filters you used. Change it if it doesn’t fit.' : 'Used the filters above? Your segment and solution will appear here, ready to edit.';
+      });
+      if (push) {
+        const p = new URLSearchParams();
+        (Object.keys(state) as Dim[]).forEach((k) => state[k].size && p.set(k, [...state[k]].join(',')));
+        history.replaceState(null, '', p.toString() ? `?${p}#work` : location.pathname);
+      }
+    }
+    function sync() { boxes.forEach((b) => (b.checked = state[b.dataset.dim as Dim].has(b.value))); render(); }
+
+    boxes.forEach((b) => b.addEventListener('change', () => { const k = b.dataset.dim as Dim; b.checked ? state[k].add(b.value) : state[k].delete(b.value); render(); }));
+    root.querySelectorAll<HTMLElement>('.dd').forEach((dd) => {
+      const t = dd.querySelector<HTMLButtonElement>('.trigger')!; const m = dd.querySelector<HTMLElement>('.menu')!;
+      t.addEventListener('click', () => { const open = t.getAttribute('aria-expanded') === 'true'; close(dd); t.setAttribute('aria-expanded', String(!open)); m.hidden = open; if (!open) m.querySelector('input')?.focus(); });
+      dd.addEventListener('keydown', (e) => { if (e.key === 'Escape') { close(); t.focus(); } });
+      dd.querySelector<HTMLButtonElement>('[data-clear-dim]')!.addEventListener('click', () => { state[dd.dataset.dd as Dim].clear(); sync(); });
+    });
+    document.addEventListener('click', (e) => { if (!(e.target as Element).closest('.dd')) close(); });
+    clearAll.addEventListener('click', () => { (Object.keys(state) as Dim[]).forEach((k) => state[k].clear()); sync(); });
+    document.querySelectorAll<HTMLInputElement>('[data-context-care]').forEach((i) => i.addEventListener('input', () => (i.dataset.touched = '1')));
+    // Segment shortcuts (hero strip) and deep links
+    document.querySelectorAll<HTMLAnchorElement>('[data-filter-link]').forEach((a) => a.addEventListener('click', () => { state.segment = new Set([a.dataset.filterLink!]); sync(); }));
+    const q = new URLSearchParams(location.search);
+    (Object.keys(state) as Dim[]).forEach((k) => q.get(k)?.split(',').forEach((v) => state[k].add(v)));
+    sync();
+  }
+</script>

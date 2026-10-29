@@ -1,0 +1,23 @@
+---
+import Icon from './Icon.astro';
+---
+<aside class="cta-tile" aria-labelledby="cta-tile-title">
+  <img src="/img/cta-room-768.webp" alt="" width="768" height="1376" loading="lazy" decoding="async" />
+  <div class="copy">
+    <p class="eyebrow">Don’t see your care model?</p>
+    <h3 id="cta-tile-title" class="card-title">We’ve built for many more.</h3>
+    <p>Tell us about your workflow and we’ll show you the closest work we’ve done.</p>
+  </div>
+  <a class="btn btn--secondary" href="#contact">Plan your project with us <Icon name="arrow-right" /></a>
+</aside>
+<style>
+  .cta-tile { position: relative; display: flex; flex-direction: column; justify-content: space-between; gap: 24px; min-height: 520px; padding: 32px; border-radius: var(--radius-xl); overflow: hidden; background: var(--illustration-ink); color: var(--text-inverse); }
+  .cta-tile img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: top center; }
+  .copy, .btn { position: relative; }
+  .copy { display: flex; flex-direction: column; gap: 16px; }
+  .eyebrow { color: var(--mint-300); }
+  .card-title { color: var(--text-inverse); font: var(--h4); letter-spacing: -0.03em; }
+  .copy p:last-child { color: var(--surface-panel); }
+  .btn { align-self: flex-start; }
+  @media (max-width: 600px) { .cta-tile { min-height: 460px; } }
+</style>

@@ -1,0 +1,330 @@
+---
+import Base from '../../layouts/Base.astro';
+import Tag from '../../components/Tag.astro';
+import Icon from '../../components/Icon.astro';
+import CaseCard from '../../components/CaseCard.astro';
+import Testimonial from '../../components/Testimonial.astro';
+import BuildingBlocks from '../../components/BuildingBlocks.astro';
+import ContactForm from '../../components/ContactForm.astro';
+import Newsletter from '../../components/Newsletter.astro';
+import { cases } from '../../data/cases';
+
+const related = ['rewind', 'everself', 'brain-health-usa'].map((s) => cases.find((c) => c.slug === s)!);
+const toc = [
+  ['at-a-glance', 'At a glance'], ['context', 'Context'], ['challenge', 'Challenge'], ['role', 'Vinta’s role'],
+  ['decisions', 'Key decisions'], ['timeline', 'Timeline'], ['results', 'Results'], ['next', 'What’s next'], ['stack', 'Tech stack'],
+];
+const V = 'https://www.vintasoftware.com';
+const services = [
+  ['EHR Development & Modernization', 'Create a new clinical platform or modernize the one your team runs.', V + '/ehr-modernization'],
+  ['Medplum Development', 'Senior engineers fluent in Medplum and FHIR, from the first sprint.', V + '/medplum'],
+  ['Healthcare Integration & Interoperability', 'FHIR-native integrations between EHRs, labs and specialty systems.', V + '/healthcare-integration'],
+  ['Fast-track Builds', 'A demo-ready MVP built on proven healthcare foundations.', V + '/building-blocks'],
+];
+---
+<Base title="Quilted Health: rebuilding a 14-year-old maternity EHR on Medplum · Vinta" description="How Vinta helped Quilted Health rebuild Maternity Neighborhood, its maternity EHR, on Medplum, starting with a one-month proof of concept." preload="/img/quilted-health-hero-1120.webp">
+  <section class="section hero" aria-labelledby="case-title">
+    <div class="container">
+      <nav aria-label="Breadcrumb" class="crumbs eyebrow"><ol role="list"><li><a href="/work">Work</a></li><li aria-current="page">Quilted Health</li></ol></nav>
+      <div class="hero-row">
+        <div class="copy">
+          <ul class="tags" role="list">
+            <Tag type="segment" label="Maternal & Prenatal" />
+            <Tag type="solution" label="EHR platform" />
+            <Tag type="service" label="EHR Modernization" />
+            <Tag type="service" label="Medplum Development" />
+          </ul>
+          <h1 id="case-title" class="h2">Quilted Health: rebuilding a 14-year-old maternity EHR on Medplum</h1>
+          <p class="lede">Quilted’s midwives needed an EHR that could keep up with modern pregnancy care. Vinta helped rebuild it on an open-source, FHIR-native platform, starting with a one-month proof of concept.</p>
+          <div class="ctas">
+            <a class="btn btn--primary" href="#contact">Plan your project with us <Icon name="arrow-right" /></a>
+            <a class="btn btn--ghost" href="#timeline">See the timeline</a>
+          </div>
+        </div>
+        <div class="hero-img">
+          <img src="/img/quilted-health-hero-1120.webp" srcset="/img/quilted-health-hero-640.webp 640w, /img/quilted-health-hero-1120.webp 1120w" sizes="(max-width: 900px) 100vw, 560px" width="1120" height="625" alt="Illustration: a mother holding her sleeping newborn by a window at dawn" fetchpriority="high" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="at-a-glance" class="section section--tight-top" aria-labelledby="glance-title">
+    <div class="container stack">
+      <h2 id="glance-title" class="eyebrow">At a glance</h2>
+      <dl class="ruled ruled--3">
+        <div><dt class="eyebrow">Client</dt><dd>Quilted Health</dd></div>
+        <div><dt class="eyebrow">Segment</dt><dd><ul class="tags" role="list"><Tag type="segment" label="Maternal & Prenatal" /></ul></dd></div>
+        <div><dt class="eyebrow">Care model</dt><dd>Midwifery-led pregnancy care with partner clinics</dd></div>
+        <div><dt class="eyebrow">Vinta’s role</dt><dd>Engineering partner: rebuilt the EHR on Medplum</dd></div>
+        <div><dt class="eyebrow">Services</dt><dd><ul class="tags" role="list"><Tag type="service" label="EHR Modernization" /><Tag type="service" label="Medplum Development" /></ul></dd></div>
+        <div><dt class="eyebrow">Duration</dt><dd class="flag"><Icon name="alert" /> To confirm with Vinta</dd></div>
+        <div class="last-row"><dt class="eyebrow">Result</dt><dd>1 month to deliver the proof of concept on Medplum<span class="small src">Source: Quilted Health case study</span></dd></div>
+        <div class="last-row"><dt class="eyebrow">Milestone</dt><dd class="fact"><Icon name="check" /> Acquired by MultiCare<span class="small src">Source: Quilted Health case study</span></dd></div>
+        <div class="last-row"><dt class="eyebrow">Impact</dt><dd class="flag"><Icon name="alert" /> Impact metric to confirm with the client<span class="small src">Example: time saved per encounter</span></dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <div class="section section--tight-top">
+    <div class="container body-row">
+      <nav class="toc" aria-label="On this page">
+        <details open>
+          <summary class="eyebrow">On this page</summary>
+          <ol role="list">{toc.map(([id, l]) => <li><a href={`#${id}`} data-toc={id}>{l}</a></li>)}</ol>
+        </details>
+      </nav>
+      <article class="article">
+        <section id="context" class="block" aria-labelledby="h-context">
+          <p class="eyebrow eyebrow--accent">01 · Context</p>
+          <h2 id="h-context" class="h4">A midwifery-led care model with its own EHR</h2>
+          <p>Quilted Health runs a network of midwifery-led clinics that partner with local hospitals. Beyond pregnancy care, they offer preventive care, annual wellness visits and contraception counseling.</p>
+          <p>Quilted also owns Maternity Neighborhood, an EHR built for pregnancy and gynecological care and used every day by midwives and birth workers.</p>
+        </section>
+
+        <section id="challenge" class="block" aria-labelledby="h-challenge">
+          <p class="eyebrow eyebrow--accent">02 · Challenge</p>
+          <h2 id="h-challenge" class="h4">Fourteen years of code made every change slow and risky</h2>
+          <p>Maternity Neighborhood still delivered its core features, but its foundations came from an earlier era of healthcare software. As Quilted grew, even small feature requests touched many parts of the system.</p>
+          <dl class="ruled ruled--3">
+            <div class="last-row"><dt class="eyebrow">Coupling</dt><dd>Nearly every part of the system depended on another</dd></div>
+            <div class="last-row"><dt class="eyebrow">Dependencies</dt><dd>Python 2 and Angular 1, with outdated libraries</dd></div>
+            <div class="last-row"><dt class="eyebrow">Interoperability</dt><dd>No native FHIR support for modern health systems</dd></div>
+          </dl>
+          <figure class="shot">
+            <p class="eyebrow eyebrow--accent">Before</p>
+            <img src="/img/quilted-ui-before.webp" width="1200" height="502" loading="lazy" decoding="async" alt="Screenshot of Maternity Neighborhood, the legacy EHR: a dated client list with a side menu for clients, activity, messages, schedule and to-dos." />
+            <figcaption class="small">Maternity Neighborhood before the rebuild: 14 years of custom code on Python 2 and Angular 1.</figcaption>
+          </figure>
+          <p>Modernizing the existing codebase proved more complex and riskier than building a new solution. A rebuild became the safer long-term path.</p>
+        </section>
+
+        <section id="role" class="block" aria-labelledby="h-role">
+          <p class="eyebrow eyebrow--accent">03 · Vinta’s role</p>
+          <h2 id="h-role" class="h4">An engineering partner inside Quilted’s team</h2>
+          <p>Vinta joined as Quilted’s engineering partner, working in their Scrum workflow with daily standups, technical syncs and a product manager alongside the developers. Over time, knowledge of the platform moved into the new modernization team, which now leads the migration.</p>
+          <dl class="ruled ruled--3">
+            <div class="last-row"><dt class="eyebrow">Ownership</dt><dd>Professional standards in every interaction</dd></div>
+            <div class="last-row"><dt class="eyebrow">Proactivity</dt><dd>Anticipating problems before they surfaced</dd></div>
+            <div class="last-row"><dt class="eyebrow">Expertise</dt><dd>Technical mastery across the team</dd></div>
+          </dl>
+          <p class="small">Strengths highlighted by Quilted Health’s CTO, Carlos Montes.</p>
+        </section>
+
+        <section id="decisions" class="block" aria-labelledby="h-decisions">
+          <p class="eyebrow eyebrow--accent">04 · Key decisions</p>
+          <h2 id="h-decisions" class="h4">Rebuild on Medplum, and prove it first</h2>
+          <p>Instead of more custom code, Quilted chose Medplum, an open-source healthcare platform with an active community, as the foundation for the new EHR.</p>
+          <dl class="ruled ruled--3">
+            <div class="last-row"><dt class="eyebrow">FHIR-native</dt><dd>Standard data exchange with modern healthcare systems</dd></div>
+            <div class="last-row"><dt class="eyebrow">Compliance</dt><dd>Architecture that supports SOC 2 and HIPAA requirements</dd></div>
+            <div class="last-row"><dt class="eyebrow">Modern stack</dt><dd>Headless API and a Mantine-based component library</dd></div>
+          </dl>
+          <p>Starting over was a significant investment, so the team proposed a one-month proof of concept to validate the architecture before committing to the rebuild.</p>
+          <figure class="shot">
+            <p class="eyebrow eyebrow--accent">After</p>
+            <img src="/img/quilted-ui-after.webp" width="1200" height="812" loading="lazy" decoding="async" alt="Screenshot of the new EHR built on Medplum: a client profile with pregnancy problems, medications and allergies, prenatal encounters and a prenatal flow sheet." />
+            <figcaption class="small">The new EHR built on Medplum: client profile, prenatal encounters and flow sheet in one view.</figcaption>
+          </figure>
+        </section>
+
+        <section id="timeline" class="block" aria-labelledby="h-timeline">
+          <p class="eyebrow eyebrow--accent">05 · Timeline</p>
+          <h2 id="h-timeline" class="h4">From proof of concept to migration</h2>
+          <ol class="timeline" role="list">
+            <li class="done"><span class="dot" aria-hidden="true"><Icon name="check" /></span><p class="eyebrow">1 month</p><h3 class="card-title">Proof of concept</h3><p class="small">Basic EHR with core charting and patient encounters, delivered ahead of schedule.</p><span class="sr-only">Status: done</span></li>
+            <li class="done"><span class="dot" aria-hidden="true"><Icon name="check" /></span><p class="eyebrow">After the PoC</p><h3 class="card-title">Production build</h3><p class="small">Depth for specialized midwifery workflows before launch, instead of a lightweight MVP.</p><span class="sr-only">Status: done</span></li>
+            <li class="current"><span class="dot" aria-hidden="true">3</span><p class="eyebrow">Ongoing</p><h3 class="card-title">Migration and feature parity</h3><p class="small">Moving practices from the legacy system while reaching full parity with Maternity Neighborhood.</p><span class="sr-only">Status: in progress</span></li>
+          </ol>
+          <p class="small flag"><Icon name="alert" /> Exact dates to confirm with Vinta</p>
+        </section>
+
+        <section id="results" class="block" aria-labelledby="h-results">
+          <p class="eyebrow eyebrow--accent">06 · Results</p>
+          <h2 id="h-results" class="h4">What changed for Quilted</h2>
+          <ul class="facts" role="list">
+            <li><Icon name="check" />Proof of concept delivered in one month, ahead of schedule</li>
+            <li><Icon name="check" />A production-ready EHR built for specialized midwifery workflows</li>
+            <li><Icon name="check" />A platform easier to maintain and onboard into, with living documentation</li>
+          </ul>
+          <blockquote class="pull">
+            <p class="card-title">“We were only looking for software augmentation, but we were also provided with skilled project managers. We delivered our ambitious project on time and with very few bugs.”</p>
+            <footer class="small">Quilted Health CTO</footer>
+          </blockquote>
+        </section>
+
+        <section id="next" class="block" aria-labelledby="h-next">
+          <p class="eyebrow eyebrow--accent">07 · What’s next</p>
+          <h2 id="h-next" class="h4">Growing with MultiCare</h2>
+          <p>MultiCare Health System acquired Quilted Health, making it a not-for-profit subsidiary that will expand pregnancy, postpartum and gynecological care across the United States. Vinta keeps building toward full feature parity with Maternity Neighborhood.</p>
+          <ul class="tags" role="list" aria-label="Work in progress">
+            {['Billing', 'Multiple babies per birth', 'Lab integrations', 'Educational content', 'eFax', 'DoseSpot e-prescribing'].map((w) => <Tag type="workflow" label={w} />)}
+          </ul>
+        </section>
+
+        <section id="stack" class="block" aria-labelledby="h-stack">
+          <p class="eyebrow eyebrow--accent">08 · Tech stack</p>
+          <h2 id="h-stack" class="h4">Built on open standards</h2>
+          <ul class="tags" role="list">{['Medplum', 'FHIR', 'Flask', 'SQLAlchemy', 'Terraform', 'Mantine'].map((w) => <li class="tag tag--workflow">{w}</li>)}</ul>
+        </section>
+      </article>
+    </div>
+  </div>
+
+  <section class="section section--tight-top" aria-label="Client testimonial">
+    <div class="container"><Testimonial video /></div>
+  </section>
+
+  <section class="section section--subtle" aria-labelledby="beyond-title">
+    <div class="container stack-md">
+      <p class="eyebrow">Beyond maternal care</p>
+      <h2 id="beyond-title" class="h3">Facing something similar in another segment?</h2>
+      <p class="lede">The problems Quilted faced show up across healthcare. Here is where we’ve solved them before.</p>
+      <ul class="ruled ruled--3" role="list">
+        <li class="last-row">
+          <ul class="tags" role="list"><Tag type="workflow" label="EHR migration" /></ul>
+          <p>Moving off a legacy EHR or an off-the-shelf tool like Healthie.</p>
+          <ul class="tags" role="list"><Tag type="segment" label="Chronic Disease" /><Tag type="segment" label="Weight & Metabolic" /></ul>
+          <a class="more" href={V + '/work/rewind'}>See Rewind and Everself <Icon name="arrow-right" /></a>
+        </li>
+        <li class="last-row">
+          <ul class="tags" role="list"><Tag type="workflow" label="Specialized clinical workflows" /></ul>
+          <p>Care models that generic EHRs can’t fit without workarounds.</p>
+          <ul class="tags" role="list"><Tag type="segment" label="Behavioral & Mental" /><Tag type="segment" label="Pediatric & Family" /></ul>
+          <a class="more" href={V + '/work/brain-health-usa'}>See Brain Health USA and Child Care <Icon name="arrow-right" /></a>
+        </li>
+        <li class="last-row">
+          <ul class="tags" role="list"><Tag type="workflow" label="Interoperability" /></ul>
+          <p>FHIR data, HL7 feeds, labs, eFax and e-prescribing.</p>
+          <ul class="tags" role="list"><Tag type="segment" label="Care Navigation & Clinic Ops" /></ul>
+          <a class="more" href={V + '/work/healthcare-transfer-center'}>See Healthcare Transfer Center <Icon name="arrow-right" /></a>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section section--tight-bottom" aria-labelledby="services-title">
+    <div class="container stack-md">
+      <p class="eyebrow">Services involved</p>
+      <h2 id="services-title" class="h3">What we’d bring to a project like yours</h2>
+      <ul class="services" role="list">
+        {services.map(([t, d, h]) => (
+          <li><a href={h}><span class="svc-icon"><Icon name="grid" /></span><span><strong>{t}</strong><span class="small">{d}</span></span><Icon name="arrow-up-right" class="icon go" /></a></li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="section section--tight-top">
+    <div class="container"><BuildingBlocks /></div>
+  </section>
+
+  <ContactForm page="quilted-health" segment="Maternal & Prenatal" workflow="EHR migration" contextNote="Pre-filled from this case. Change it if it doesn’t fit." />
+
+  <section class="section section--tight-bottom" aria-labelledby="more-title">
+    <div class="container stack-md">
+      <div class="more-head">
+        <div><p class="eyebrow">More client cases</p><h2 id="more-title" class="h3">Similar workflows, other segments</h2></div>
+        <div class="arrows"><button type="button" data-scroll="-1" aria-label="Previous cases"><Icon name="arrow-left" /></button><button type="button" data-scroll="1" aria-label="Next cases"><Icon name="arrow-right" /></button></div>
+      </div>
+      <ul class="track" role="list" data-track>{related.map((c) => <li><CaseCard c={c} /></li>)}</ul>
+    </div>
+  </section>
+
+  <section class="section section--tight-top">
+    <div class="container"><Newsletter /></div>
+  </section>
+</Base>
+
+<style>
+  .hero { padding-top: 48px; padding-bottom: 64px; }
+  .crumbs ol { display: flex; gap: 10px; margin-bottom: 40px; }
+  .crumbs li + li::before { content: '/'; margin-right: 10px; color: var(--text-secondary); }
+  .crumbs a { color: var(--text-secondary); text-decoration: none; }
+  .crumbs a:hover { color: var(--text-link); }
+  .crumbs [aria-current] { color: var(--text-heading); }
+  .hero-row { display: grid; grid-template-columns: 1fr 560px; gap: 64px; align-items: center; }
+  .copy { display: flex; flex-direction: column; gap: 24px; }
+  .ctas { display: flex; gap: 16px; align-items: center; flex-wrap: wrap; padding-top: 8px; }
+  .hero-img { border-radius: var(--radius-xl); overflow: hidden; background: var(--illustration-ink); aspect-ratio: 4/3; }
+  .hero-img img { width: 100%; height: 100%; object-fit: cover; object-position: 70% center; }
+  .stack { display: flex; flex-direction: column; gap: 16px; }
+  .stack-md { display: flex; flex-direction: column; gap: 16px; }
+  .stack-md > .ruled, .stack-md > .services, .stack-md > .track { margin-top: 16px; }
+  dd { color: var(--text-primary); display: flex; flex-direction: column; gap: 6px; }
+  .flag { flex-direction: row; flex-wrap: wrap; align-items: center; gap: 8px; color: var(--text-secondary); }
+  .flag .src { width: 100%; }
+  .fact { flex-direction: row; flex-wrap: wrap; gap: 8px; align-items: center; }
+  .fact :global(svg) { color: var(--pine-700); }
+  .fact .src { width: 100%; }
+  .src { color: var(--text-secondary); }
+
+  .body-row { display: grid; grid-template-columns: 240px 1fr; gap: 80px; align-items: start; }
+  .toc { position: sticky; top: calc(var(--header-h) + 24px); }
+  .toc summary { list-style: none; cursor: default; margin-bottom: 12px; }
+  .toc summary::-webkit-details-marker { display: none; }
+  .toc ol { border-left: 1px solid var(--border-default); }
+  .toc a { display: block; padding: 8px 0 8px 16px; margin-left: -1px; border-left: 2px solid transparent; color: var(--text-secondary); text-decoration: none; font: var(--body-small); }
+  .toc a:hover { color: var(--text-link); }
+  .toc a.is-active { color: var(--text-link); border-left-color: var(--bg-brand); }
+  .article { display: flex; flex-direction: column; gap: 72px; min-width: 0; max-width: 880px; }
+  .block { display: flex; flex-direction: column; gap: 20px; scroll-margin-top: calc(var(--header-h) + 24px); }
+  .shot { display: flex; flex-direction: column; gap: 12px; }
+  .shot img { border-radius: var(--radius-xl); border: 1px solid var(--border-default); background: var(--bg-subtle); }
+  .timeline { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .timeline li { position: relative; display: flex; flex-direction: column; gap: 8px; padding-top: 44px; }
+  .timeline li::before { content: ''; position: absolute; top: 13px; left: 36px; right: -24px; height: 2px; background: var(--bg-brand); }
+  .timeline li.current::before { background: var(--border-default); }
+  .timeline li:last-child::before { right: 0; }
+  .dot { position: absolute; top: 0; left: 0; width: 28px; height: 28px; border-radius: 50%; display: grid; place-items: center; background: var(--bg-brand); color: var(--text-inverse); font: var(--body-small); }
+  .dot :global(svg) { width: 16px; height: 16px; }
+  .current .dot { background: var(--bg-page); color: var(--text-link); border: 2px solid var(--bg-brand); }
+  .facts { border-top: 1px solid var(--border-default); }
+  .facts li { display: flex; gap: 12px; align-items: center; padding: 16px 0; border-bottom: 1px solid var(--border-default); }
+  .facts :global(svg) { color: var(--pine-700); }
+  .pull { border-left: 3px solid var(--bg-brand); padding: 8px 0 8px 24px; display: flex; flex-direction: column; gap: 12px; }
+  .more { display: inline-flex; gap: 8px; align-items: center; margin-top: auto; text-decoration: none; }
+  .more:hover { text-decoration: underline; text-underline-offset: 4px; }
+  .services { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .services a { display: flex; gap: 16px; align-items: flex-start; padding: 20px; border: 1px solid var(--border-default); border-radius: var(--radius-lg); text-decoration: none; color: var(--text-primary); transition: box-shadow .2s; }
+  .services a:hover { box-shadow: var(--shadow-md); }
+  .services a > span:nth-child(2) { display: flex; flex-direction: column; gap: 4px; flex: 1; }
+  .services strong { font-weight: 400; color: var(--text-heading); }
+  .svc-icon { width: 40px; height: 40px; border-radius: var(--radius-md); background: var(--tag-service-bg); color: var(--tag-service-text); display: grid; place-items: center; flex: none; }
+  .go { color: var(--text-link); }
+  .more-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; }
+  .more-head > div:first-child { display: flex; flex-direction: column; gap: 16px; }
+  .arrows { display: flex; gap: 8px; }
+  .arrows button { width: 48px; height: 40px; border-radius: var(--radius-full); border: 1px solid var(--border-subtle); background: var(--bg-page); color: var(--text-heading); cursor: pointer; display: grid; place-items: center; }
+  .arrows button:hover { background: var(--bg-subtle); }
+  .track { display: grid; grid-auto-flow: column; grid-auto-columns: calc((100% - 48px) / 3); gap: 24px; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 8px; scrollbar-width: thin; }
+  .track > li { scroll-snap-align: start; display: flex; }
+  .track > li > :global(*) { flex: 1; }
+
+  @media (max-width: 1100px) { .hero-row { grid-template-columns: 1fr 1fr; } .body-row { grid-template-columns: 200px 1fr; gap: 48px; } .track { grid-auto-columns: 46%; } }
+  @media (max-width: 900px) {
+    .hero-row { grid-template-columns: 1fr; gap: 32px; }
+    .body-row { grid-template-columns: 1fr; gap: 32px; }
+    .toc { position: static; background: var(--bg-subtle); border-radius: var(--radius-lg); padding: 16px; }
+    .toc summary { cursor: pointer; margin: 0; }
+    .toc details[open] summary { margin-bottom: 12px; }
+    .timeline { grid-template-columns: 1fr; }
+    .timeline li::before { display: none; }
+    .services { grid-template-columns: 1fr; }
+    .track { grid-auto-columns: 85%; }
+  }
+</style>
+
+<script>
+  // Sticky TOC: highlight the section in view (benchmark #13)
+  const links = [...document.querySelectorAll<HTMLAnchorElement>('[data-toc]')];
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e) => { if (e.isIntersecting) links.forEach((l) => { const on = l.dataset.toc === e.target.id; l.classList.toggle('is-active', on); on ? l.setAttribute('aria-current', 'location') : l.removeAttribute('aria-current'); }); });
+  }, { rootMargin: '-30% 0px -60% 0px' });
+  links.forEach((l) => { const s = document.getElementById(l.dataset.toc!); if (s) io.observe(s); });
+  // Collapse the TOC on small screens
+  const det = document.querySelector<HTMLDetailsElement>('.toc details');
+  if (det && matchMedia('(max-width: 900px)').matches) det.open = false;
+  // Carousel arrows (only "More client cases" uses a carousel, benchmark #6)
+  const track = document.querySelector<HTMLElement>('[data-track]');
+  document.querySelectorAll<HTMLButtonElement>('[data-scroll]').forEach((b) => b.addEventListener('click', () => track?.scrollBy({ left: Number(b.dataset.scroll) * track.clientWidth * 0.9, behavior: 'smooth' })));
+</script>
