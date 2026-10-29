@@ -28,10 +28,10 @@ const { title, description, preload } = Astro.props;
       <slot />
     </main>
     <Footer />
-    <a href="#contact" class="floating btn btn--primary" aria-label="Let’s talk: go to the contact form">
+    <aside aria-label="Quick contact"><a href="#contact" class="floating btn btn--primary" aria-label="Let’s talk: go to the contact form">
       <svg class="icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" aria-hidden="true"><path d="M4 5.5A1.5 1.5 0 0 1 5.5 4h9A1.5 1.5 0 0 1 16 5.5v6a1.5 1.5 0 0 1-1.5 1.5H9l-3.5 3v-3A1.5 1.5 0 0 1 4 11.5v-6Z"/></svg>
       <span>Let’s talk</span>
-    </a>
+    </a></aside>
     <style>
       .floating { position: fixed; right: 24px; bottom: 24px; z-index: 40; height: 56px; border-radius: var(--radius-full); padding: 0 24px; box-shadow: var(--shadow-brand-lift); }
       @media (max-width: 600px) { .floating { right: 16px; bottom: 16px; width: 56px; padding: 0; justify-content: center; } .floating span { display: none; } }
