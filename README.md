@@ -2,9 +2,9 @@
 
 Redesign and implementation of Vinta's **/work** (Clients) page and the **/work/quilted-health** case study, for the *Senior Marketing Web Designer (AI-Driven)* challenge.
 
-- **Live:** _Netlify URL coming soon_
+- **Live:** [vinta-work-challenge.netlify.app/work](https://vinta-work-challenge.netlify.app/work) · [Quilted Health case](https://vinta-work-challenge.netlify.app/work/quilted-health)
 - **Design system (Figma):** documented components, tokens and the illustration guide
-- **Research and presentation board (FigJam):** 13 numbered sections, from brief to AI workflow and validation
+- **Research and presentation board (FigJam):** 14 numbered sections, from brief to AI workflow, validation and a newsletter suggestion
 - **Design system summary:** [`docs/design-system.md`](docs/design-system.md)
 - **AI conversation logs:** [`docs/ai-logs/`](docs/ai-logs/)
 - **Responsive screenshots:** [`docs/screenshots/`](docs/screenshots/) (390 and 768 px)
