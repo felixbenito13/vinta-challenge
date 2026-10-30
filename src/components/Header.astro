@@ -59,14 +59,9 @@ const current = Astro.url.pathname.startsWith('/work') ? 'Work' : '';
     btn.setAttribute('aria-expanded', String(!open));
     nav.classList.toggle('is-open', !open);
   });
-  // Hide on scroll down, show on scroll up (benchmark #24). Disabled with reduced motion.
-  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  let last = scrollY;
+  // Header stays visible; only gains a shadow once the page scrolls.
   addEventListener('scroll', () => {
     const y = scrollY;
     header.classList.toggle('is-scrolled', y > 8);
-    if (!reduce && btn.getAttribute('aria-expanded') !== 'true') header.classList.toggle('is-hidden', y > last && y > 240);
-    last = y;
   }, { passive: true });
-  header.addEventListener('focusin', () => header.classList.remove('is-hidden'));
 </script>
