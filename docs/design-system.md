@@ -55,7 +55,7 @@ Geist (licensed fallback for the brand font Moderat) and Geist Mono for labels. 
 
 | Component | Status | Used in | Code |
 |---|---|---|---|
-| Header (hide on scroll down, mobile menu) | Adapted | both | `Header.astro` |
+| Header (always visible, shadow on scroll, mobile menu) | Adapted | both | `Header.astro` |
 | Button (primary, secondary, ghost) | Inherited | both | `global.css .btn` |
 | Tag (segment, solution, service, workflow) | Created | both | `Tag.astro` |
 | Filter bar · compact (multi-select dropdowns, chips, URL state) | Created | Work | `FilterBar.astro` |
