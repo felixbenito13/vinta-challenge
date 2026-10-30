@@ -61,6 +61,21 @@ public/img/      optimized WebP illustrations and screens
 - Illustrations are original, made with Adobe Firefly from the illustration guide in the DS and retouched; prompts are in the AI conversation logs.
 - Typography uses Geist as the licensed fallback for Moderat.
 
+## Measured results
+
+PageSpeed Insights on the published pages, 30 Oct 2026 (Lighthouse 13.6; mobile = Moto G Power, slow 4G). Baseline measured with the same tool on vintasoftware.com (Lighthouse 13.5).
+
+| Page | Performance | Accessibility | Best practices | SEO | LCP |
+|---|---|---|---|---|---|
+| /work · mobile · before | 49 | 92 | — | — | 15.2 s |
+| /work · mobile · after | **100** | **100** | **100** | **100** | **1.0 s** |
+| Quilted · mobile · before | 35 | 89 | 77 | 92 | 19.4 s |
+| Quilted · mobile · after | **100** | **100** | **100** | **100** | **1.0 s** |
+| /work · desktop · before → after | 68 → **100** | | | | 0.3 s |
+| Quilted · desktop · before → after | 74 → **100** | | | | 0.5 s |
+
+Total Blocking Time 0 ms and CLS ≤ 0.036 on all four runs. axe: 0 violations on both pages.
+
 ## Assumptions
 
 - Geist is used as the licensed fallback for Moderat (brand font license to confirm)
@@ -73,7 +88,8 @@ public/img/      optimized WebP illustrations and screens
 - Only the two requested pages are implemented; header and footer links go to the live site
 - Mobile layouts were built directly in code, not drawn in Figma
 - Unconfirmed facts are flagged on the page: project duration, impact metric, timeline dates
-- Before/after numbers: “before” from PageSpeed Insights on vintasoftware.com; “after” from Lighthouse on the production build. Commercial impact (H1–H7) is expected, not measured
+- Commercial impact (H1–H7) is expected, not measured; it needs analytics after launch
+- PageSpeed still lists small opportunities: HTML cache lifetime (Netlify default), a smaller mobile hero variant, font request chain
 
 ## Time spent
 
